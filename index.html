@@ -255,22 +255,8 @@ const D_SS={
   5:[[{l:'A',n:'Flat DB press (Wk4+)',s:'3×10 elbows 45°'},{l:'B',n:'Cable rows',s:'3×12'}],[{l:'A',n:'Cable crossovers (Wk5+)',s:'3×12'},{l:'B',n:'Face pulls',s:'3×15'}]],
   6:[]
 };
-const D_BP={
-  1:{t:'Shoulder chain',i:['Dead hang 60s','Scapular pull-ups 2×10','Doorway pec stretch 30s each','Pec isometric holds 3×15s','Sidekick Axisboard Pro — single leg balance 2×60s each foot'],v:['shoulder bulletproofing band pull-aparts face pulls','rotator cuff strengthening how to','axisboard pro balance board foot ankle training']},
-  2:{t:'Hips + lower back',i:['90/90 hip rotations × 5 each','Single leg RDL bodyweight × 10 each','Hip flexor couch stretch 45s each','Glute bridges with band 2×15','Sidekick Axisboard Pro — lateral rock 2×60s'],v:['90 90 hip stretch mobility tutorial','couch stretch hip flexor','sidekick axisboard ankle stability training']},
-  3:{t:'Upper chain',i:['Thoracic rotations on all fours × 10','Foam roll T-spine 60s','Neck rolls × 5 each direction','Dead hang 60s','Sidekick Axisboard Pro — forward/back rock 2×60s'],v:['thoracic spine mobility exercises','foam roller upper back thoracic','axisboard pro balance training exercises']},
-  4:{t:'Knees + ankles',i:['Single leg calf raise 2×15','Reverse Nordic curl 2×8 controlled','Wall ankle dorsiflexion 10 each','Foam roll quads and IT band','Sidekick Axisboard Pro — squat on board 2×10'],v:['reverse nordic curl knee bulletproofing','ankle dorsiflexion wall mobility','sidekick axisboard squat balance training']},
-  5:{t:'Weak links of the week',i:['Whatever felt tight Mon–Thu — repeat that protocol','Pec isometric holds 3×20s','Doorway pec stretch light pain-free only','Sidekick Axisboard Pro — single leg stance 2×60s each'],v:['pec strain rehab exercises','shoulder impingement exercises avoid','axisboard pro single leg balance rehab']},
-  6:{t:'Full body mobility flow',i:["World's greatest stretch × 5 each",'Deep squat hold 60s','Hip 90/90 PAILs/RAILs 2 rounds','Shoulder doorway PAILs/RAILs 2 rounds','Sidekick Axisboard Pro — full balance flow 5 min'],v:["world's greatest stretch tutorial","90 90 hip PAILs RAILs FRC",'axisboard pro full body balance flow']}
-};
-const D_PAILS={
-  1:{t:'Shoulder PAILs/RAILs',s:['Hold doorway stretch at 90°','PAIL: press arm into frame × 20s ramp to max','RAIL: contract pec deeper × 10s · 3 rounds','Dead hang 60s after'],v:['shoulder PAILs RAILs doorway FRC tutorial','pec end range isometric FRC']},
-  2:{t:'Elbow + wrist',s:['Wrist extension PAILs × 20s','Elbow full extension hold × 10s · 2 rounds'],v:['wrist PAILs RAILs FRC tutorial','elbow end range strengthening']},
-  3:{t:'Thoracic + lat',s:['Lat stretch: PAIL press arm into wall × 20s','RAIL — reach further overhead × 10s · Dead hang 60s'],v:['lat overhead PAILs stretch','thoracic PAILs RAILs FRC']},
-  4:{t:'Hip + ankle PAILs/RAILs',s:['90/90 hip: 2 min passive hold','PAIL — front shin into floor × 20s','RAIL — lift front knee higher × 10s · 3 rounds'],v:['90 90 hip PAILs RAILs ian markow','hip PAILs RAILs FRC beginner']},
-  5:{t:'Pec doorway PAILs/RAILs — rehab',s:['Hold doorway stretch at 90°','PAIL: press arm into frame × 20s ramp to max','RAIL: contract pec further × 10s · 3 rounds'],v:['pec PAILs RAILs doorway FRC','pec strain rehab end range isometric']},
-  6:{t:'Full body PAILs/RAILs flow',s:['2 rounds hip PAILs/RAILs','2 rounds shoulder PAILs/RAILs','Deep squat + T-spine roll'],v:['full body PAILs RAILs kinstretch','kinstretch beginner full body']}
-};
+const D_BP={"1": {"t": "Shoulders \u2014 combined bulletproofing + PAILs/RAILs", "i": ["Dead hang 60s \u2014 spinal decompression + shoulder traction", "Doorway pec PAILs/RAILs: hold stretch at 90\u00b0 \u2192 PAIL press arm into frame \u00d7 20s ramp to max \u2192 RAIL contract deeper \u00d7 10s \u00b7 3 rounds (THIS IS YOUR REHAB)", "Band pull-aparts 2\u00d715 \u2014 posterior shoulder health", "Scapular pull-ups 2\u00d78 \u2014 scap stability", "Pec isometric holds 3\u00d715s \u2014 tissue loading"], "v": ["shoulder PAILs RAILs doorway FRC tutorial", "dead hang shoulder decompression benefits", "scapular pull ups how to tutorial"]}, "2": {"t": "Arms \u2014 combined bulletproofing + PAILs/RAILs", "i": ["Wrist extension PAILs: prayer press into floor \u00d7 20s ramp to max \u00b7 2 rounds each side", "Elbow full extension hold \u00d7 10s \u2014 elbow tendon protection \u00b7 2 rounds", "Reverse curls 2\u00d712 \u2014 elbow and forearm bulletproofing", "Dead hang 30s \u2014 decompress after arm day"], "v": ["wrist PAILs RAILs FRC tutorial", "elbow end range strengthening", "reverse curls elbow tendon health"]}, "3": {"t": "Back \u2014 combined bulletproofing + PAILs/RAILs", "i": ["Dead hang 60s \u2014 spinal decompression after heavy row day", "Lat overhead PAILs: press arm into wall overhead \u00d7 20s \u2192 RAIL reach further \u00d7 10s \u00b7 2 rounds", "Thoracic foam roll 60s \u2014 T-spine mobility", "Thoracic rotation hold \u00d7 20s each side", "Neck rolls \u00d7 5 each direction \u2014 cervical mobility"], "v": ["lat overhead PAILs stretch tutorial", "thoracic spine mobility foam roller", "dead hang spinal decompression"]}, "4": {"t": "Legs \u2014 combined bulletproofing + PAILs/RAILs", "i": ["90/90 hip PAILs/RAILs: 2 min passive hold \u2192 PAIL front shin into floor \u00d7 20s \u2192 RAIL lift front knee \u00d7 10s \u00b7 2 rounds each side", "Reverse Nordic curl 2\u00d78 controlled eccentric \u2014 knee bulletproofing", "Wall ankle dorsiflexion \u00d7 10 each \u2014 squat depth + knee protection", "Deep squat hold 45s \u2014 hip + ankle end range"], "v": ["90 90 hip PAILs RAILs ian markow tutorial", "reverse nordic curl knee bulletproofing how to", "ankle dorsiflexion wall mobility"]}, "5": {"t": "Chest \u2014 combined bulletproofing + PAILs/RAILs (rehab priority)", "i": ["Doorway pec PAILs/RAILs: hold stretch at 90\u00b0 \u2192 PAIL press arm into frame \u00d7 20s ramp to max \u2192 RAIL contract pec deeper \u00d7 10s \u00b7 3 rounds \u2014 most important day of the week for rehab", "Dead hang 60s \u2014 shoulder traction", "Pec isometric holds 3\u00d720s \u2014 tissue loading end range", "Band pull-aparts 1\u00d715 \u2014 posterior shoulder balance"], "v": ["pec PAILs RAILs doorway FRC end range", "pec strain rehab end range isometric", "dead hang shoulder health"]}, "6": {"t": "Murph \u2014 full body combined flow", "i": ["World's greatest stretch \u00d7 5 each side \u2014 hip flexor + thoracic + shoulder all in one", "Deep squat hold 60s \u2014 hip + ankle end range", "90/90 hip PAILs/RAILs \u00d7 1 round each side \u2014 hip maintenance", "Shoulder doorway PAILs/RAILs \u00d7 2 rounds \u2014 shoulder maintenance", "Dead hang 60s \u2014 decompress after Murph"], "v": ["world's greatest stretch tutorial how to", "90 90 hip PAILs RAILs tutorial", "full body mobility flow post workout"]}};
+// PAILs/RAILs now combined into D_BP
 const D_CARS={1:'Full CARs + extra shoulder CARs',2:'Full CARs + extra wrist + elbow CARs',3:'Full CARs + extra thoracic CARs',4:'Full CARs + extra hip + ankle CARs',5:'Full CARs — shoulder pain-free range only',6:'Full CARs all 6 joints'};
 const D_MCGILL=['Modified curl-up: lie back, one knee bent, hands under lower back — lift head/shoulders × 5 holds of 10s','Side plank: forearm down, body straight — 5 holds of 10s each side','Bird dog: all fours, extend opposite arm + leg, hold 10s × 5 each side'];
 
@@ -286,6 +272,7 @@ const D_PROMPTS={
 const D_WD=[
   {t:'Hard stop on school 10:15pm — write tomorrow\'s first task, close laptop',v:null},
   {t:'Prep tomorrow: gym bag, clothes, water bottle — reduce 5am friction',v:null},
+  {t:'Axisboard Pro + toe spacers — 5–10 min balance work before bed (see notes below)',v:'sidekick axisboard pro exercises tutorial'},
   {t:'4-7-8 breathing: inhale 4s → hold 7s → exhale 8s × 4 rounds',v:'4 7 8 breathing technique tutorial Andrew Weil'},
   {t:'Week 3+: 10-min NSDR body scan — Insight Timer app (free, download offline)',v:'NSDR non sleep deep rest body scan guided'},
   {t:'Asleep by 11pm — 5am wake = 6 hours',v:null}
@@ -454,7 +441,7 @@ function renderDarius(){
   const mc=document.getElementById('mainContent');
   if(!loaded){mc.innerHTML='<div class="spin-wrap"><div class="spinner"></div>Loading...</div>';return;}
   const d=curDay,cfg=D_DCFG[d],dk=`d_d${d}`;
-  const hk=['scripture','toespacers','piano','reading','journal','winddown'];
+  const hk=['scripture','toespacers','axisboard','piano','reading','journal','winddown'];
   const hd=hk.filter(h=>g(`${dk}.habits.${h}`,false)).length;
   const sh=parseFloat(g(`${dk}.study.hours`,0))||0;
   const td=g(`${dk}.training.done`,false);
@@ -470,6 +457,7 @@ function renderDarius(){
   H+=`<div class="sec"><div class="sh"><div class="st"><div class="dot a-gold"></div>Morning anchor</div></div><div class="card">
     ${hr(dk,'scripture','Scripture reading — 15 min','5:00am','d')}
     ${hr(dk,'toespacers','Toe spacers — wear during morning routine','Morning','d')}
+    ${hr(dk,'axisboard','Axisboard Pro + toe spacers — evening balance work','Before bed','d')}
     <div style="font-size:11px;color:#999;padding:4px 0">Toe spacers restore natural foot alignment. Wear during scripture, McGill, CARs — any time you are barefoot and stationary.</div>
   </div></div>`;
 
@@ -535,7 +523,7 @@ function renderDarius(){
 }
 
 function renderDariusTraining(dk,d){
-  const comp=D_COMP[d],dss=D_SS[d]||[],bp=D_BP[d],pails=D_PAILS[d],cars=D_CARS[d];
+  const comp=D_COMP[d],dss=D_SS[d]||[],bp=D_BP[d],cars=D_CARS[d];
   const td=g(`${dk}.training.done`,false);
   let H=`<div class="sec"><div class="sh"><div class="st"><div class="dot a-teal"></div>Training · ${D_DCFG[d].tr}</div></div>`;
 
@@ -669,22 +657,12 @@ function renderDariusTraining(dk,d){
   // Phase 6 — Bulletproofing
   if(bp){
     H+=`<div class="card">
-      <div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:#999;margin-bottom:5px">Phase 6 — Bulletproofing + Axisboard · ${bp.t}</div>
+      <div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:#999;margin-bottom:5px">Phase 6 — Bulletproofing + PAILs/RAILs · ${bp.t}</div>
       ${phaseRow(dk,'phase6','Phase 6 complete')}
-      <ul style="padding-left:14px;margin:6px 0">${bp.i.map(i=>`<li style="font-size:11px;color:#555;margin-bottom:4px;line-height:1.5">${i}</li>`).join('')}</ul>
-      <div style="font-size:10px;color:#999;font-weight:600;margin-bottom:3px">How-to videos</div>
+      <ul style="padding-left:14px;margin:6px 0">${bp.i.map(i=>`<li style="font-size:11px;color:#555;margin-bottom:5px;line-height:1.6">${i}</li>`).join('')}</ul>
+      <div style="font-size:10px;color:#999;font-weight:600;margin-bottom:3px;margin-top:6px">How-to videos</div>
       ${bp.v.map(v=>`<a class="vl" href="https://www.youtube.com/results?search_query=${encodeURIComponent(v)}" target="_blank">▶ ${v}</a>`).join('')}
-      <div style="margin-top:8px"><label class="lbl">Axisboard notes</label><input type="text" value="${esc(g(`${dk}.axisboard.notes`,''))}" oninput="sv('${dk}.axisboard.notes',this.value)" placeholder="Balance time, difficulty, improvements..."></div>
-    </div>`;}
-
-  // Phase 7 — PAILs/RAILs
-  if(pails){
-    H+=`<div class="card">
-      <div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:#999;margin-bottom:5px">Phase 7 — PAILs/RAILs · ${pails.t}</div>
-      ${phaseRow(dk,'phase7','Phase 7 complete')}
-      <ul style="padding-left:14px;margin:6px 0">${pails.s.map(s=>`<li style="font-size:11px;color:#555;margin-bottom:4px;line-height:1.5">${s}</li>`).join('')}</ul>
-      <div class="note" style="margin-bottom:6px">Isometric first always. Build end-range capacity before any load.</div>
-      ${pails.v.map(v=>`<a class="vl" href="https://www.youtube.com/results?search_query=${encodeURIComponent(v)}" target="_blank">▶ ${v}</a>`).join('')}
+      <div style="margin-top:8px"><label class="lbl">Notes</label><input type="text" value="${esc(g(`${dk}.phase6.notes`,''))}" oninput="sv('${dk}.phase6.notes',this.value)" placeholder="How it felt, anything tight..."></div>
     </div>`;}
 
   H+=`</div>`;return H;
