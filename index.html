@@ -503,7 +503,7 @@ function renderMarathonRun(dk,d,runType){
     long:'Long run tip: walk the uphills, run the flats and downhills. Practice the downhill form — lean slightly back, shorten stride, land midfoot not heel.'
   };
 
-  let H=`<div class="sec"><div class="sh"><div class="st"><div class="dot" style="background:${info.color}"></div>Marathon Training · Week ${week} of 22 · ${info.label}</div></div>
+  let H=`<div class="sec"><div class="sh"><div class="st"><div class="dot" style="background:${info.color}"></div>Marathon Training · Week ${week} of 22 · ${info.label}</div><div style="font-size:10px;font-weight:600;color:#1a5a9b;background:#e6eef8;padding:2px 7px;border-radius:5px">6:00am · ${target} min target</div></div>
   <div class="card">
     <div style="background:${info.color}18;border:1px solid ${info.color}44;border-radius:8px;padding:10px 12px;margin-bottom:10px">
       <div style="font-size:11px;font-weight:700;color:${info.color};text-transform:uppercase;letter-spacing:.07em;margin-bottom:4px">${info.label} · Target: ${target} min</div>
@@ -513,7 +513,7 @@ function renderMarathonRun(dk,d,runType){
     <div style="font-size:11px;color:#555;line-height:1.5;margin-bottom:10px">${kneeTips[runType]}</div>
     <div style="display:flex;align-items:center;gap:10px;margin-bottom:6px">
       <div><label class="lbl">Actual time (min)</label>
-        <input type="number" min="0" max="300" value="${g(`${dk}.run.actual`,'')}" oninput="sv('${dk}.run.actual',this.value);renderAll()" style="width:70px;font-size:15px;font-weight:700;text-align:center;padding:5px 7px">
+        <input type="text" inputmode="decimal" value="${g(`${dk}.run.actual`,'')}" oninput="sv('${dk}.run.actual',this.value)" onchange="renderAll()" style="width:70px;font-size:15px;font-weight:700;text-align:center;padding:5px 7px">
       </div>
       <div style="flex:1">
         <div style="font-size:11px;color:#999;margin-bottom:3px">${pct}% of target · ${target} min goal</div>
@@ -537,7 +537,7 @@ function renderDarius(){
   const mc=document.getElementById('mainContent');
   if(!loaded){mc.innerHTML='<div class="spin-wrap"><div class="spinner"></div>Loading...</div>';return;}
   const d=curDay,cfg=D_DCFG[d],dk=`d_d${d}`;
-  const hk=['scripture','toespacers','sauna','axisboard','piano','reading','journal','winddown'];
+  const hk=['scripture','toespacers','piano','reading','journal','winddown','axisboard'];
   const hd=hk.filter(h=>g(`${dk}.habits.${h}`,false)).length;
   const sh=parseFloat(g(`${dk}.study.hours`,0))||0;
   const td=g(`${dk}.training.done`,false);
@@ -553,15 +553,13 @@ function renderDarius(){
   H+=`<div class="sec"><div class="sh"><div class="st"><div class="dot a-gold"></div>Morning anchor</div></div><div class="card">
     ${hr(dk,'scripture','Scripture reading — 15 min','5:00am','d')}
     ${hr(dk,'toespacers','Toe spacers — wear during morning routine','Morning','d')}
-    ${hr(dk,'sauna','Sauna complete','Morning','d')}
-    ${hr(dk,'axisboard','Axisboard Pro + toe spacers — evening balance work','Before bed','d')}
-    <div style="font-size:11px;color:#999;padding:4px 0">Toe spacers restore natural foot alignment. Wear during scripture, McGill, CARs — any time you are barefoot and stationary.</div>
+    <div style="font-size:11px;color:#999;padding:4px 0">Toe spacers restore natural foot alignment. Wear during scripture, McGill + CARs — any barefoot stationary time in the morning.</div>
   </div></div>`;
 
   // SAUNA
   if(d>=1&&d<=6){
     const runDay=cfg.run;
-    H+=`<div class="sec"><div class="sh"><div class="st"><div class="dot a-amber"></div>Sauna</div><span style="font-size:10px;color:#999">${runDay?'Turn on arrival — ready during McGill + CARs':'Turn on arrival — ready in 10–15 min'}</span></div><div class="card">
+    H+=`<div class="sec"><div class="sh"><div class="st"><div class="dot a-amber"></div>Sauna</div><div style="display:flex;align-items:center;gap:6px"><span style="font-size:10px;color:#999">Turn on at 5:30 — ready by 5:40</span><span style="font-size:10px;font-weight:600;color:#1a5a9b;background:#e6eef8;padding:2px 7px;border-radius:5px">5:40am · 15–20 min</span></div></div><div class="card">
       <div class="phase-row" onclick="tog('${dk}.phases.sauna');renderAll()"><div class="phase-check ${g(`${dk}.phases.sauna`,false)?'on':''}">✓</div><div class="phase-label">Sauna complete — ${d===6?'post-run 20 min':'15–20 min'}</div></div>
       <div style="font-size:11px;color:#666;padding:5px 0 4px;line-height:1.6">${runDay?'Turn on when you arrive → do McGill + CARs while it heats → run → sauna → lift. On long run Saturdays: turn on before you leave, sauna when you return.':'Turn on when you arrive → do McGill + CARs while it heats → sauna 15–20 min → lift. Heat exposure before lifting raises core temp, primes the nervous system, and boosts growth hormone.'}</div>
       <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:7px">
@@ -634,11 +632,38 @@ function renderDarius(){
 function renderDariusTraining(dk,d){
   const comp=D_COMP[d],dss=D_SS[d]||[],bp=D_BP[d],cars=D_CARS[d];
   const td=g(`${dk}.training.done`,false);
-  let H=`<div class="sec"><div class="sh"><div class="st"><div class="dot a-teal"></div>Training · ${D_DCFG[d].tr}</div></div>`;
+  const showRunTimeline=D_DCFG[d]&&D_DCFG[d].run;
+  let H=`<div class="sec"><div class="sh"><div class="st"><div class="dot a-teal"></div>Training · ${D_DCFG[d].tr}</div></div>
+  <div class="card" style="background:#faf9f6;margin-bottom:8px">
+    <div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:#999;margin-bottom:8px">Today's session timeline</div>
+    <div style="display:flex;flex-direction:column;gap:5px">
+      ${[
+        {t:'5:30am',l:'Arrive — turn sauna on',c:'#888'},
+        {t:'5:30',l:'Phase 1 — McGill Big 3 (5 min)',c:'#1a5a9b'},
+        {t:'5:35',l:'Phase 2 — CARs (5 min)',c:'#1a5a9b'},
+        {t:'5:40',l:'Sauna (15–20 min)',c:'#EF9F27'},
+        {t:'5:55',l:'Phase 3 — Shoulder activation (5 min)',c:'#1a5a9b'},
+        showRunTimeline?{t:'6:00',l:'Marathon run · ${target} min target',c:'#1a7a50'}:{t:'6:00',l:'Phase 4 — Zone 2 run (10 min)',c:'#1a7a50'},
+        showRunTimeline?{t:'after run',l:'Phase 4 — Pre-lift warm-up (5 min)',c:'#1a5a9b'}:{t:'6:10',l:'Phase 5 — Main lift + supersets (35 min)',c:'#7F77DD'},
+        showRunTimeline?{t:'after warm-up',l:'Phase 5 — Main lift + supersets (35 min)',c:'#7F77DD'}:{t:'6:45',l:'Phase 6 — Bulletproofing + PAILs/RAILs (8 min)',c:'#1D9E75'},
+        {t:'~6:50',l:'Phase 6 — Bulletproofing + PAILs/RAILs (8 min)',c:'#1D9E75'},
+        {t:'~7:00',l:'Home',c:'#1a7a50'}
+      ].filter((x,i,a)=>!(showRunTimeline&&x.t==='~6:50'?false:true)||i===a.length-1).map(s=>`
+      <div style="display:flex;align-items:center;gap:8px">
+        <div style="font-size:10px;font-weight:600;color:#999;width:68px;flex-shrink:0;text-align:right">${s.t}</div>
+        <div style="width:8px;height:8px;border-radius:50%;background:${s.c};flex-shrink:0"></div>
+        <div style="font-size:11px;color:#444">${s.l}</div>
+      </div>`).join('')}
+    </div>
+  </div>`;
 
   // PHASE 1 — McGill
+  const isRunDay2=D_DCFG[d]&&D_DCFG[d].run;
   H+=`<div class="card">
-    <div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:#999;margin-bottom:5px;padding-bottom:4px;border-bottom:1px solid #f0ede6">Phase 1 — McGill Big 3</div>
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:5px;padding-bottom:4px;border-bottom:1px solid #f0ede6">
+      <div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:#999">Phase 1 — McGill Big 3</div>
+      <div style="font-size:10px;font-weight:600;color:#1a5a9b;background:#e6eef8;padding:2px 7px;border-radius:5px">5:30am · 5 min</div>
+    </div>
     ${phaseRow(dk,'mcgill','McGill Big 3 complete')}
     ${D_MCGILL.map(m=>`<div style="font-size:11px;color:#555;padding:4px 0 4px 28px;border-bottom:1px solid #f0ede6;line-height:1.5">${m}</div>`).join('')}
     <div class="note" style="margin-top:5px">Do at gym after driving — not immediately after waking.</div>
@@ -672,7 +697,10 @@ function renderDariusTraining(dk,d){
 
   // PHASE 5 — Main lift with full set logger
   H+=`<div class="card">
-    <div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:#999;margin-bottom:5px">Phase 5 — ${comp.n}</div>
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:5px">
+      <div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:#999">Phase 5 — ${comp.n}</div>
+      <div style="font-size:10px;font-weight:600;color:#1a5a9b;background:#e6eef8;padding:2px 7px;border-radius:5px">${isRunDay2?'after warm-up':'6:10am'} · 35 min</div>
+    </div>
     ${phaseRow(dk,'phase5','Phase 5 complete')}`;
 
   // SET LOGGER
@@ -760,7 +788,10 @@ function renderDariusTraining(dk,d){
   // Phase 6 — Bulletproofing
   if(bp){
     H+=`<div class="card">
-      <div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:#999;margin-bottom:5px">Phase 6 — Bulletproofing + PAILs/RAILs · ${bp.t}</div>
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:5px">
+        <div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:#999">Phase 6 — Bulletproofing + PAILs/RAILs · ${bp.t}</div>
+        <div style="font-size:10px;font-weight:600;color:#1a5a9b;background:#e6eef8;padding:2px 7px;border-radius:5px">~6:50am · 8 min</div>
+      </div>
       ${phaseRow(dk,'phase6','Phase 6 complete')}
       <ul style="padding-left:14px;margin:6px 0">${bp.i.map(i=>`<li style="font-size:11px;color:#555;margin-bottom:5px;line-height:1.6">${i}</li>`).join('')}</ul>
       <div style="font-size:10px;color:#999;font-weight:600;margin-bottom:3px;margin-top:6px">How-to videos</div>
@@ -858,7 +889,7 @@ function renderStudy(dk,who){
   return `<div class="sec"><div class="sh"><div class="st"><div class="dot a-purple"></div>School</div><span style="font-size:10px;color:#999">Target: 2 hrs</span></div>
   <div class="card">
     <div style="display:flex;align-items:center;gap:10px;margin-bottom:8px">
-      <div><label class="lbl">Hours</label><input type="number" step=".25" min="0" max="5" value="${g(`${dk}.study.hours`,'')}" oninput="sv('${dk}.study.hours',this.value);renderAll()" style="width:60px;font-size:15px;font-weight:700;text-align:center;padding:4px 6px"></div>
+      <div><label class="lbl">Hours</label><input type="text" inputmode="decimal" value="${g(`${dk}.study.hours`,'')}" oninput="sv('${dk}.study.hours',this.value)" onchange="renderAll()" style="width:60px;font-size:15px;font-weight:700;text-align:center;padding:4px 6px"></div>
       <div style="flex:1"><div style="font-size:10px;color:#999;margin-bottom:2px">${Math.min(100,Math.round(((parseFloat(g(`${dk}.study.hours`,0))||0)/2)*100))}% of goal</div>
         <div class="pbar"><div class="pbf" style="width:${Math.min(100,Math.round(((parseFloat(g(`${dk}.study.hours`,0))||0)/2)*100))}%;background:${Math.min(100,Math.round(((parseFloat(g(`${dk}.study.hours`,0))||0)/2)*100))>=100?'#1a7a50':'#7F77DD'}"></div></div>
       </div>
@@ -976,6 +1007,14 @@ function renderWindDown(dk,d,who){
       ${item.v?`<a class="vl" style="margin-top:0;flex-shrink:0" href="https://www.youtube.com/results?search_query=${encodeURIComponent(item.v)}" target="_blank">▶</a>`:''}
     </div>`;
   });
+  if(who==='d'){
+    H+=`<div style="margin-top:8px;padding-top:8px;border-top:1px solid #f0ede6">
+      <div style="font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.08em;color:#999;margin-bottom:5px">Axisboard Pro + toe spacers</div>
+      <div style="font-size:11px;color:#555;line-height:1.5;margin-bottom:7px">5–10 min before bed. Put toe spacers on, stand on the Axisboard. Balance work at low intensity is calming for your nervous system — it's a natural transition into sleep mode. Single leg balance, lateral rocks, forward/back, squat holds.</div>
+      <a class="vl" href="https://www.youtube.com/results?search_query=sidekick+axisboard+pro+exercises+tutorial" target="_blank">▶ Axisboard exercises</a>
+      <div style="margin-top:7px">${hr(dk,'axisboard','Axisboard Pro + toe spacers done','Before bed','d')}</div>
+    </div>`;
+  }
   H+=`<div style="margin-top:6px">${hr(dk,'winddown',`Wind-down — start by ${bedTime}`,bedTime,who)}</div>
   </div></div>`;return H;
 }
