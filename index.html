@@ -705,17 +705,46 @@ function renderDariusTraining(dk,d){
     <div style="margin-top:7px"><label class="lbl">Notes</label><input type="text" value="${esc(g(`${dk}.sauna.notes`,''))}" oninput="sv('${dk}.sauna.notes',this.value)" placeholder="How it felt, sweat level, energy after..."></div>
   </div>`;
 
-  // ── PHASE 4 — Shoulder activation ────────────────────────
-  H+=`<div class="card">
-    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:5px">
-      <div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:#999">Phase 4 — Shoulder activation</div>
-      <div style="font-size:10px;font-weight:600;color:#1a5a9b;background:#e6eef8;padding:2px 7px;border-radius:5px">5:55am · 5 min</div>
-    </div>
-    ${phaseRow(dk,'shoulder','Shoulder activation complete')}
-    <div style="display:grid;grid-template-columns:1fr 1fr;gap:3px;margin-top:5px">
-      ${[['Lacrosse ball outer + upper pec','30–45s'],['Band pull-aparts',d===1||d===3||d===5?'2×15':'1×15'],['Face pulls',d===1||d===3||d===5?'2×15':'1×15'],['External rotations',d===1||d===3||d===5?'2×12':'1×12'],['Wall slides',d===1||d===3||d===5?'2×10':'1×10']].map(([n,s])=>`<div style="font-size:11px;padding:3px 0;border-bottom:1px solid #f0ede6"><span style="color:#1a1a1a">${n}</span><br><span style="color:#999">${s}</span></div>`).join('')}
-    </div>
-  </div>`;
+  // ── PHASE 4 — Context-specific activation ────────────────
+  const D_ACT={
+    1:{label:'Lower body (run) + Shoulder (overhead press)',cats:[
+      {cat:'🏃 Run prep',ex:[['Glute bridges','2×10 — fire glutes before run'],['Banded side walks','2×10 each — hip abductors'],['Leg swings forward','×10 each — dynamic hip'],['Ankle circles','×10 each — ground contact prep'],['Air squats slow','×10 — full chain primer']]},
+      {cat:'💪 Lift prep — overhead press',ex:[['Band pull-aparts','2×15 — rear delt + rotator cuff'],['External rotations','2×12 each — shoulder health'],['Wall slides','2×10 — scapular upward rotation'],['Arm circles small to big','×10 each direction']]}
+    ]},
+    2:{label:'Shoulder + elbow + wrist (arms day)',cats:[
+      {cat:'💪 Lift prep — curls + pushdowns',ex:[['Wrist circles','×10 each direction — elbow tendon prep'],['Band pull-aparts','2×15 — shoulder stability'],['External rotations','2×12 each — rotator cuff'],['Reverse curls light','2×10 — elbow warm up'],['Finger extensions','×10 — forearm balance']]}
+    ]},
+    3:{label:'Lower body (run) + Upper back (rows)',cats:[
+      {cat:'🏃 Run prep',ex:[['Glute bridges','2×10 — fire glutes before run'],['Banded side walks','2×10 each — hip abductors'],['Leg swings forward + lateral','×10 each — full hip mobility'],['Ankle circles','×10 each — ground contact prep'],['Air squats slow','×10 — full chain primer']]},
+      {cat:'💪 Lift prep — rows + back',ex:[['Band pull-aparts','2×15 — scapular retraction'],['Face pulls','2×15 — rear delt + external rotation'],['Scapular retractions','2×10 — mid back activation'],['Dead hang','20–30s — lat lengthening before rows']]}
+    ]},
+    4:{label:'Lower body + knee focus (leg press + squats)',cats:[
+      {cat:'🦵 Leg day + knee prep',ex:[['Glute bridges','2×15 — max hip activation'],['Banded side walks','2×15 each — hip abductors for knee stability'],['Wall ankle dorsiflexion','×10 each — squat depth + knee tracking'],['Leg swings','×10 each — hip mobility'],['Bodyweight squats slow','2×10 — full chain activation'],['Single leg balance','20s each — proprioception + knee stability']]}
+    ]},
+    5:{label:'Lower body (run) + Chest/push prep (rehab safe)',cats:[
+      {cat:'🏃 Run prep',ex:[['Glute bridges','2×10 — fire glutes before run'],['Banded side walks','2×10 each — hip abductors'],['Leg swings forward','×10 each — dynamic hip'],['Ankle circles','×10 each — ground contact prep'],['Air squats slow','×10 — full chain primer']]},
+      {cat:'💪 Lift prep — chest (rehab safe)',ex:[['Band pull-aparts','2×15 — posterior shoulder balance'],['External rotations','2×12 each — rotator cuff protection'],['Pec isometric holds','3×10s pain-free range only'],['Face pulls','2×15 — always before pressing']]}
+    ]},
+    6:{label:'Full lower body dynamic (long run)',cats:[
+      {cat:'🏃 Long run prep — full dynamic',ex:[['Glute bridges','2×15 — full hip activation'],['Banded side walks','2×15 each'],['Leg swings forward + lateral','×10 each side'],['Ankle circles + calf raises','×10 each'],['Hip circles','×10 each — full hip mobility'],['Dynamic lunges with reach','×5 each — thoracic + hip'],['High knees 10s + butt kicks 10s','— full warm-up primer']]}
+    ]}
+  };
+  const actData=D_ACT[d];
+  if(actData){
+    H+=`<div class="card">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:5px">
+        <div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:#999">Phase 4 — Activation · ${actData.label}</div>
+        <div style="font-size:10px;font-weight:600;color:#1a5a9b;background:#e6eef8;padding:2px 7px;border-radius:5px">5:55am · 5–8 min</div>
+      </div>
+      ${phaseRow(dk,'shoulder','Activation complete')}
+      ${actData.cats.map((cat,ci)=>`
+        <div style="margin-top:${ci>0?'10px':'6px'};padding-top:${ci>0?'10px':'0'};${ci>0?'border-top:1px solid #f0ede6':''}">
+          <div style="font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.07em;color:#999;margin-bottom:5px">${cat.cat}</div>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:3px">
+            ${cat.ex.map(([n,s])=>`<div style="font-size:11px;padding:4px 0;border-bottom:1px solid #f0ede6"><span style="color:#1a1a1a;font-weight:500">${n}</span><br><span style="color:#999">${s}</span></div>`).join('')}
+          </div>
+        </div>`).join('')}
+    </div>`;}
 
   // ── PHASE 5 — Run ────────────────────────────────────────
   if(isRunDay){
