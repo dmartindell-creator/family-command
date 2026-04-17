@@ -632,33 +632,41 @@ function renderDarius(){
 function renderDariusTraining(dk,d){
   const comp=D_COMP[d],dss=D_SS[d]||[],bp=D_BP[d],cars=D_CARS[d];
   const td=g(`${dk}.training.done`,false);
-  const showRunTimeline=D_DCFG[d]&&D_DCFG[d].run;
-  let H=`<div class="sec"><div class="sh"><div class="st"><div class="dot a-teal"></div>Training · ${D_DCFG[d].tr}</div></div>
-  <div class="card" style="background:#faf9f6;margin-bottom:8px">
-    <div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:#999;margin-bottom:8px">Today's session timeline</div>
-    <div style="display:flex;flex-direction:column;gap:5px">
-      ${[
-        {t:'5:30am',l:'Arrive — turn sauna on',c:'#888'},
-        {t:'5:30',l:'Phase 1 — McGill Big 3 (5 min)',c:'#1a5a9b'},
-        {t:'5:35',l:'Phase 2 — CARs (5 min)',c:'#1a5a9b'},
-        {t:'5:40',l:'Sauna (15–20 min)',c:'#EF9F27'},
-        {t:'5:55',l:'Phase 3 — Shoulder activation (5 min)',c:'#1a5a9b'},
-        showRunTimeline?{t:'6:00',l:'Marathon run · ${target} min target',c:'#1a7a50'}:{t:'6:00',l:'Phase 4 — Zone 2 run (10 min)',c:'#1a7a50'},
-        showRunTimeline?{t:'after run',l:'Phase 4 — Pre-lift warm-up (5 min)',c:'#1a5a9b'}:{t:'6:10',l:'Phase 5 — Main lift + supersets (35 min)',c:'#7F77DD'},
-        showRunTimeline?{t:'after warm-up',l:'Phase 5 — Main lift + supersets (35 min)',c:'#7F77DD'}:{t:'6:45',l:'Phase 6 — Bulletproofing + PAILs/RAILs (8 min)',c:'#1D9E75'},
-        {t:'~6:50',l:'Phase 6 — Bulletproofing + PAILs/RAILs (8 min)',c:'#1D9E75'},
-        {t:'~7:00',l:'Home',c:'#1a7a50'}
-      ].filter((x,i,a)=>!(showRunTimeline&&x.t==='~6:50'?false:true)||i===a.length-1).map(s=>`
-      <div style="display:flex;align-items:center;gap:8px">
-        <div style="font-size:10px;font-weight:600;color:#999;width:68px;flex-shrink:0;text-align:right">${s.t}</div>
+  const isRunDay=D_DCFG[d]&&D_DCFG[d].run;
+  const runType=D_DCFG[d]&&D_DCFG[d].runType;
+  const runTarget=isRunDay?getRunTarget(runType):0;
+
+  // ── SESSION TIMELINE ──────────────────────────────────────
+  let timeline=[];
+  timeline.push({t:'5:30am',l:'Arrive — turn sauna on',c:'#888'});
+  timeline.push({t:'5:30',l:'Phase 1 — McGill Big 3 · 5 min',c:'#1a5a9b'});
+  timeline.push({t:'5:35',l:'Phase 2 — CARs · 5 min',c:'#1a5a9b'});
+  timeline.push({t:'5:40',l:'Phase 3 — Sauna · 15–20 min',c:'#EF9F27'});
+  timeline.push({t:'5:55',l:'Phase 4 — Shoulder activation · 5 min',c:'#1a5a9b'});
+  if(isRunDay){
+    timeline.push({t:'6:00',l:`Phase 5 — Marathon run · ${runTarget} min target`,c:'#1a7a50'});
+    timeline.push({t:'after run',l:'Phase 6 — Pre-lift warm-up · 5 min',c:'#1a5a9b'});
+    timeline.push({t:'after warm-up',l:'Phase 7 — Main lift + supersets · 35 min',c:'#7F77DD'});
+  } else {
+    timeline.push({t:'6:00',l:'Phase 5 — Zone 2 run · 10 min',c:'#1a7a50'});
+    timeline.push({t:'6:10',l:'Phase 6 — Main lift + supersets · 35 min',c:'#7F77DD'});
+  }
+  timeline.push({t:'~6:50',l:'Phase 7 — Bulletproofing + PAILs/RAILs · 8 min',c:'#1D9E75'});
+  timeline.push({t:'~7:00am',l:'Home ✓',c:'#1a7a50'});
+
+  let H=`<div class="sec"><div class="sh"><div class="st"><div class="dot a-teal"></div>Training · ${D_DCFG[d].tr||'Session'}</div></div>
+  <div class="card" style="background:#faf9f6;margin-bottom:5px">
+    <div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:#999;margin-bottom:8px">Today's session — 5:30am to 7:00am</div>
+    <div style="display:flex;flex-direction:column;gap:6px">
+      ${timeline.map(s=>`<div style="display:flex;align-items:center;gap:8px">
+        <div style="font-size:10px;font-weight:600;color:#999;width:80px;flex-shrink:0;text-align:right">${s.t}</div>
         <div style="width:8px;height:8px;border-radius:50%;background:${s.c};flex-shrink:0"></div>
-        <div style="font-size:11px;color:#444">${s.l}</div>
+        <div style="font-size:11px;color:#444;line-height:1.4">${s.l}</div>
       </div>`).join('')}
     </div>
   </div>`;
 
-  // PHASE 1 — McGill
-  const isRunDay2=D_DCFG[d]&&D_DCFG[d].run;
+  // ── PHASE 1 — McGill ──────────────────────────────────────
   H+=`<div class="card">
     <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:5px;padding-bottom:4px;border-bottom:1px solid #f0ede6">
       <div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:#999">Phase 1 — McGill Big 3</div>
@@ -670,41 +678,92 @@ function renderDariusTraining(dk,d){
     <a class="vl" style="margin-top:5px" href="https://www.youtube.com/results?search_query=McGill+Big+3+exercises+tutorial" target="_blank">▶ McGill Big 3 tutorial</a>
   </div>`;
 
-  // PHASE 2 — CARs
+  // ── PHASE 2 — CARs ───────────────────────────────────────
   H+=`<div class="card">
-    <div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:#999;margin-bottom:5px">Phase 2 — CARs · ${cars}</div>
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:5px">
+      <div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:#999">Phase 2 — CARs · ${cars}</div>
+      <div style="font-size:10px;font-weight:600;color:#1a5a9b;background:#e6eef8;padding:2px 7px;border-radius:5px">5:35am · 5 min</div>
+    </div>
     ${phaseRow(dk,'cars','CARs complete')}
     <div style="font-size:11px;color:#555;line-height:1.5;padding:4px 0 6px">Squeeze fists + brace core + tense glutes WHILE moving the joint. Neck → shoulder → thoracic → wrist → hip → ankle.</div>
     <a class="vl" href="https://www.youtube.com/results?search_query=ian+markow+daily+CARs+routine" target="_blank">▶ Ian Markow CARs</a>
     <a class="vl" href="https://www.youtube.com/results?search_query=FRC+controlled+articular+rotations+tutorial+follow+along" target="_blank">▶ FRC CARs follow along</a>
   </div>`;
 
-  // PHASE 3 — Shoulder activation
+  // ── PHASE 3 — SAUNA ──────────────────────────────────────
   H+=`<div class="card">
-    <div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:#999;margin-bottom:5px">Phase 3 — Shoulder activation</div>
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:5px">
+      <div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:#999">Phase 3 — Sauna</div>
+      <div style="font-size:10px;font-weight:600;color:#EF9F27;background:#fdf3dc;padding:2px 7px;border-radius:5px">5:40am · 15–20 min</div>
+    </div>
+    ${phaseRow(dk,'sauna','Sauna complete')}
+    <div style="font-size:11px;color:#555;line-height:1.5;padding:4px 0 6px">${isRunDay?'Sauna ready by the time McGill + CARs are done. 15 min in sauna → out → shoulder activation → run. Heat primes nervous system and raises core temp before your run.':'Sauna ready by the time McGill + CARs are done. 15–20 min → out → shoulder activation → Zone 2 run → lift. Heat before lifting raises growth hormone and primes the nervous system.'}</div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:6px">
+      <div><label class="lbl">Duration (min)</label><input type="number" min="5" max="40" value="${g(`${dk}.sauna.duration`,'')}" oninput="sv('${dk}.sauna.duration',this.value)" placeholder="15"></div>
+      <div><label class="lbl">Temp (°F)</label><input type="number" min="140" max="220" value="${g(`${dk}.sauna.temp`,'')}" oninput="sv('${dk}.sauna.temp',this.value)" placeholder="180"></div>
+    </div>
+    <div style="margin-top:7px"><label class="lbl">Notes</label><input type="text" value="${esc(g(`${dk}.sauna.notes`,''))}" oninput="sv('${dk}.sauna.notes',this.value)" placeholder="How it felt, sweat level, energy after..."></div>
+  </div>`;
+
+  // ── PHASE 4 — Shoulder activation ────────────────────────
+  H+=`<div class="card">
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:5px">
+      <div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:#999">Phase 4 — Shoulder activation</div>
+      <div style="font-size:10px;font-weight:600;color:#1a5a9b;background:#e6eef8;padding:2px 7px;border-radius:5px">5:55am · 5 min</div>
+    </div>
     ${phaseRow(dk,'shoulder','Shoulder activation complete')}
     <div style="display:grid;grid-template-columns:1fr 1fr;gap:3px;margin-top:5px">
       ${[['Lacrosse ball outer + upper pec','30–45s'],['Band pull-aparts',d===1||d===3||d===5?'2×15':'1×15'],['Face pulls',d===1||d===3||d===5?'2×15':'1×15'],['External rotations',d===1||d===3||d===5?'2×12':'1×12'],['Wall slides',d===1||d===3||d===5?'2×10':'1×10']].map(([n,s])=>`<div style="font-size:11px;padding:3px 0;border-bottom:1px solid #f0ede6"><span style="color:#1a1a1a">${n}</span><br><span style="color:#999">${s}</span></div>`).join('')}
     </div>
   </div>`;
 
-  // PHASE 4 — Run
-  H+=`<div class="card">
-    <div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:#999;margin-bottom:5px">Phase 4 — Zone 2 Run · 10 min</div>
-    ${phaseRow(dk,'run','Run complete')}
-    <div style="font-size:11px;color:#555;line-height:1.5;padding:4px 0">Conversational pace. Fills cold plunge rebound window — by first working set: vasodilated + testosterone primed.</div>
-  </div>`;
+  // ── PHASE 5 — Run ────────────────────────────────────────
+  if(isRunDay){
+    // Marathon run is rendered separately above by renderMarathonRun()
+    // Just show a connector card
+    H+=`<div class="card" style="background:#e6f4ee;border-color:#1a7a50">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:4px">
+        <div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:#1a7a50">Phase 5 — Marathon run</div>
+        <div style="font-size:10px;font-weight:600;color:#1a7a50;background:#c0ecd8;padding:2px 7px;border-radius:5px">6:00am · ${runTarget} min</div>
+      </div>
+      <div style="font-size:11px;color:#1a5a3a;line-height:1.5">See marathon training section above ↑ for full run details, target, and logging.</div>
+      ${phaseRow(dk,'phase5run','Marathon run complete')}
+    </div>`;
+  } else {
+    H+=`<div class="card">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:5px">
+        <div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:#999">Phase 5 — Zone 2 Run · 10 min</div>
+        <div style="font-size:10px;font-weight:600;color:#1a5a9b;background:#e6eef8;padding:2px 7px;border-radius:5px">6:00am · 10 min</div>
+      </div>
+      ${phaseRow(dk,'phase5run','Zone 2 run complete')}
+      <div style="font-size:11px;color:#555;line-height:1.5;padding:4px 0">Rest day from marathon running. Conversational pace, 10 min keeps your aerobic base ticking without adding run stress.</div>
+      <a class="vl" style="margin-top:4px" href="https://www.youtube.com/results?search_query=zone+2+running+heart+rate+training" target="_blank">▶ Zone 2 running explained</a>
+    </div>`;
+  }
 
-  // PHASE 5 — Main lift with full set logger
-  H+=`<div class="card">
+  // ── PHASE 6 — Pre-lift warm-up (run days only) ────────────
+  if(isRunDay){
+    H+=`<div class="card">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:5px">
+        <div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:#999">Phase 6 — Pre-lift warm-up</div>
+        <div style="font-size:10px;font-weight:600;color:#1a5a9b;background:#e6eef8;padding:2px 7px;border-radius:5px">after run · 5 min</div>
+      </div>
+      ${phaseRow(dk,'phase6warmup','Warm-up complete')}
+      <div style="font-size:11px;color:#555;line-height:1.5;padding:4px 0">Light movement to transition from run to lift — jump rope 2 min easy, or 5 min bike. Gets blood into lifting muscles after the run.</div>
+    </div>`;}
+
+  // ── PHASE 6 or 7 — Main lift ──────────────────────────────
+  const liftPhaseNum = isRunDay ? 7 : 6;
+  const liftTime = isRunDay ? 'after warm-up · 35 min' : '6:10am · 35 min';
+  if(comp&&comp.n){
+    H+=`<div class="card">
     <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:5px">
-      <div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:#999">Phase 5 — ${comp.n}</div>
-      <div style="font-size:10px;font-weight:600;color:#1a5a9b;background:#e6eef8;padding:2px 7px;border-radius:5px">${isRunDay2?'after warm-up':'6:10am'} · 35 min</div>
+      <div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:#999">Phase ${liftPhaseNum} — ${comp.n}</div>
+      <div style="font-size:10px;font-weight:600;color:#1a5a9b;background:#e6eef8;padding:2px 7px;border-radius:5px">${liftTime}</div>
     </div>
-    ${phaseRow(dk,'phase5','Phase 5 complete')}`;
+    ${phaseRow(dk,'phase_lift','Lift complete')}`;
 
-  // SET LOGGER
-  if(d!==6){
+    // SET LOGGER
     H+=`<div style="margin-top:8px">
       <div style="font-size:10px;font-weight:600;color:#999;text-transform:uppercase;letter-spacing:.07em;margin-bottom:5px">Set log — today</div>
       <div style="display:grid;grid-template-columns:auto 1fr 1fr 1fr;gap:4px;margin-bottom:4px">
@@ -723,35 +782,31 @@ function renderDariusTraining(dk,d){
     </div>`;
 
     // PRIOR WEEK SUMMARY
-    const priorDk=`d_d${d}`;
-    const priorKey='prior_'+priorDk;
+    const hasPrior=comp.sets.some((_,i)=>g(`prev.d_d${d}.sets.s${i}.weight`,''));
     H+=`<div style="margin-top:10px;padding-top:10px;border-top:1px solid #f0ede6">
-      <div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:#999;margin-bottom:5px">Last week — ${comp.n}</div>`;
-    const hasPrior=comp.sets.some((_,i)=>g(`prev.${priorDk}.sets.s${i}.weight`,''));
+      <div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:#999;margin-bottom:5px">Last week</div>`;
     if(hasPrior){
       H+=comp.sets.map((setName,i)=>{
-        const w=g(`prev.${priorDk}.sets.s${i}.weight`,'—');
-        const r=g(`prev.${priorDk}.sets.s${i}.reps`,'—');
+        const w=g(`prev.d_d${d}.sets.s${i}.weight`,'—');
+        const r=g(`prev.d_d${d}.sets.s${i}.reps`,'—');
         return `<div style="display:flex;justify-content:space-between;padding:3px 0;border-bottom:1px solid #f0ede6"><div style="font-size:11px;color:#666">${setName}</div><div style="font-size:11px;font-weight:500;color:#1a1a1a">${w} lbs × ${r}</div></div>`;
       }).join('');
     } else {
-      H+=`<div style="font-size:11px;color:#bbb;padding:4px 0">No data from last week yet — it will appear here automatically next week.</div>`;
+      H+=`<div style="font-size:11px;color:#bbb;padding:4px 0">No data yet — will appear here automatically next week.</div>`;
     }
-    H+=`</div>`;}
+    H+=`</div>`;
 
+    H+=`<div style="margin-top:8px"><label class="lbl">Session notes</label>
+      <textarea style="min-height:46px" placeholder="How it felt, PRs, pain signals..." oninput="sv('${dk}.training.notes',this.value)">${esc(g(`${dk}.training.notes`,''))}</textarea>
+    </div>
+    <div style="margin-top:7px;display:flex;align-items:center;gap:8px;cursor:pointer" onclick="tog('${dk}.training.done');renderAll()">
+      <div style="flex:1;font-size:12px;font-weight:600">Session complete</div>
+      <div class="hc ${td?'on-j':''}" style="width:20px;height:20px;border-radius:4px">✓</div>
+    </div></div>`;}
 
-
-  H+=`<div style="margin-top:8px"><label class="lbl">Session notes</label>
-    <textarea style="min-height:46px" placeholder="How it felt, PRs, pain signals..." oninput="sv('${dk}.training.notes',this.value)">${esc(g(`${dk}.training.notes`,''))}</textarea>
-  </div>
-  <div style="margin-top:7px;display:flex;align-items:center;gap:8px;cursor:pointer" onclick="tog('${dk}.training.done');renderAll()">
-    <div style="flex:1;font-size:12px;font-weight:600">Session complete</div>
-    <div class="hc ${td?'on-j':''}" style="width:20px;height:20px;border-radius:4px">✓</div>
-  </div></div>`;
-
-  // Supersets
+  // ── SUPERSETS ─────────────────────────────────────────────
   if(dss.length>0){
-    let ssH=`<div class="card"><div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:#999;margin-bottom:4px">Phase 5 — Supersets</div>
+    let ssH=`<div class="card"><div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:#999;margin-bottom:4px">Phase ${liftPhaseNum} — Supersets</div>
     ${phaseRow(dk,'supersets','Supersets complete')}`;
     dss.forEach((s,si)=>{
       ssH+=`<div style="border-left:3px solid #e0ddd6;padding-left:10px;margin:8px 0">
@@ -773,26 +828,26 @@ function renderDariusTraining(dk,d){
           ${[1,2,3].map(setNum=>`
           <div style="display:grid;grid-template-columns:auto 1fr 1fr 1fr;gap:4px;margin-top:3px;align-items:center">
             <div style="font-size:10px;color:#666;padding:3px 5px;font-weight:500">Set ${setNum}</div>
-            <input type="text" value="${g(`${dk}.ss.${ssKey}.s${setNum}.weight`,'')}" oninput="sv('${dk}.ss.${ssKey}.s${setNum}.weight',this.value)" placeholder="lbs" style="text-align:center;padding:5px 4px;font-size:12px">
-            <input type="text" value="${g(`${dk}.ss.${ssKey}.s${setNum}.reps`,'')}" oninput="sv('${dk}.ss.${ssKey}.s${setNum}.reps',this.value)" placeholder="reps" style="text-align:center;padding:5px 4px;font-size:12px">
-            <input type="text" value="${g(`${dk}.ss.${ssKey}.s${setNum}.note`,'')}" oninput="sv('${dk}.ss.${ssKey}.s${setNum}.note',this.value)" placeholder="..." style="padding:5px 4px;font-size:11px">
+            <input type="text" value="${esc(g(`${dk}.ss.${ssKey}.s${setNum}.weight`,''))}" oninput="sv('${dk}.ss.${ssKey}.s${setNum}.weight',this.value)" placeholder="lbs" style="text-align:center;padding:5px 4px;font-size:12px">
+            <input type="text" value="${esc(g(`${dk}.ss.${ssKey}.s${setNum}.reps`,''))}" oninput="sv('${dk}.ss.${ssKey}.s${setNum}.reps',this.value)" placeholder="reps" style="text-align:center;padding:5px 4px;font-size:12px">
+            <input type="text" value="${esc(g(`${dk}.ss.${ssKey}.s${setNum}.note`,''))}" oninput="sv('${dk}.ss.${ssKey}.s${setNum}.note',this.value)" placeholder="..." style="padding:5px 4px;font-size:11px">
           </div>`).join('')}
         </div>`;
       });
       ssH+=`</div>`;
     });
     ssH+=`</div>`;
-    H+=ssH;
-  }
+    H+=ssH;}
 
-  // Phase 6 — Bulletproofing
+  // ── FINAL PHASE — Bulletproofing + PAILs/RAILs ───────────
+  const finalPhase = isRunDay ? 8 : 7;
   if(bp){
     H+=`<div class="card">
       <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:5px">
-        <div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:#999">Phase 6 — Bulletproofing + PAILs/RAILs · ${bp.t}</div>
-        <div style="font-size:10px;font-weight:600;color:#1a5a9b;background:#e6eef8;padding:2px 7px;border-radius:5px">~6:50am · 8 min</div>
+        <div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:#999">Phase ${finalPhase} — Bulletproofing + PAILs/RAILs · ${bp.t}</div>
+        <div style="font-size:10px;font-weight:600;color:#1D9E75;background:#e0f3ea;padding:2px 7px;border-radius:5px">~6:50am · 8 min</div>
       </div>
-      ${phaseRow(dk,'phase6','Phase 6 complete')}
+      ${phaseRow(dk,'phase_bp','Phase ${finalPhase} complete')}
       <ul style="padding-left:14px;margin:6px 0">${bp.i.map(i=>`<li style="font-size:11px;color:#555;margin-bottom:5px;line-height:1.6">${i}</li>`).join('')}</ul>
       <div style="font-size:10px;color:#999;font-weight:600;margin-bottom:3px;margin-top:6px">How-to videos</div>
       ${bp.v.map(v=>`<a class="vl" href="https://www.youtube.com/results?search_query=${encodeURIComponent(v)}" target="_blank">▶ ${v}</a>`).join('')}
