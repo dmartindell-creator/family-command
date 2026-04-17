@@ -231,13 +231,13 @@ const MONTHS=['January','February','March','April','May','June','July','August',
 
 // ── DARIUS CONFIG ──────────────────────────────────────────
 const D_DCFG={
-  0:{f:'Sabbath + Planning'},
-  1:{f:'Shoulders / Abs',tr:'Shoulders',cold:true},
-  2:{f:'Arms',tr:'Arms',cold:true},
-  3:{f:'Back / Abs',tr:'Back',cold:true},
-  4:{f:'Legs',tr:'Legs',cold:true},
-  5:{f:'Chest (Rehab)',tr:'Chest',cold:true},
-  6:{f:'Murph Simulation',tr:'Murph',cold:false}
+  0:{f:'Sabbath + Planning',run:false,tr:null},
+  1:{f:'Shoulders / Abs + Easy Run',run:true,runType:'easy',tr:'Shoulders'},
+  2:{f:'Arms',run:false,tr:'Arms'},
+  3:{f:'Back / Abs + Moderate Run',run:true,runType:'moderate',tr:'Back'},
+  4:{f:'Legs — Knee Focus',run:false,tr:'Legs'},
+  5:{f:'Chest (Rehab) + Easy Run',run:true,runType:'easy',tr:'Chest'},
+  6:{f:'Long Run Day',run:true,runType:'long',tr:null}
 };
 const D_COMP={
   1:{n:'DB Overhead Press (Wk4+) / Cable Laterals (now)',sets:['Warm-up 1','Warm-up 2','Top Set','Working Set 1','Working Set 2']},
@@ -245,7 +245,7 @@ const D_COMP={
   3:{n:'Chest-Supported Row',sets:['Warm-up 1','Warm-up 2','Top Set','Working Set 1','Working Set 2']},
   4:{n:'Leg Press',sets:['Warm-up 1','Warm-up 2','Top Set','Working Set 1','Working Set 2']},
   5:{n:'Incline DB Press (Wk3+) / Isometric (Wk2)',sets:['Warm-up 1','Warm-up 2','Top Set','Working Set 1','Working Set 2']},
-  6:{n:'Murph: Mile → Cindy → Mile',sets:['Round 1–5','Round 6–10','Round 11–15','Round 16–20']}
+  // Saturday = long run only, no lifting
 };
 const D_SS={
   1:[[{l:'A',n:'DB lateral raises',s:'3×12 slow eccentric'},{l:'B',n:'Rear delt flys',s:'3×15 · 60s rest'}],[{l:'A',n:'Face pulls',s:'3×15 rope to forehead'},{l:'B',n:'External rotations',s:'3×12 each'},{l:'C',n:'Cable lateral raises',s:'3×12 · 90s rest'}],[{l:'A',n:'Plank',s:'3×30–60s'},{l:'B',n:'Hanging knee raise',s:'3×12'},{l:'C',n:'Ab wheel rollout',s:'3×10'}]],
@@ -255,8 +255,59 @@ const D_SS={
   5:[[{l:'A',n:'Flat DB press (Wk4+)',s:'3×10 elbows 45°'},{l:'B',n:'Cable rows',s:'3×12'}],[{l:'A',n:'Cable crossovers (Wk5+)',s:'3×12'},{l:'B',n:'Face pulls',s:'3×15'}]],
   6:[]
 };
-const D_BP={"1": {"t": "Shoulders \u2014 combined bulletproofing + PAILs/RAILs", "i": ["Dead hang 60s \u2014 spinal decompression + shoulder traction", "Doorway pec PAILs/RAILs: hold stretch at 90\u00b0 \u2192 PAIL press arm into frame \u00d7 20s ramp to max \u2192 RAIL contract deeper \u00d7 10s \u00b7 3 rounds (THIS IS YOUR REHAB)", "Band pull-aparts 2\u00d715 \u2014 posterior shoulder health", "Scapular pull-ups 2\u00d78 \u2014 scap stability", "Pec isometric holds 3\u00d715s \u2014 tissue loading"], "v": ["shoulder PAILs RAILs doorway FRC tutorial", "dead hang shoulder decompression benefits", "scapular pull ups how to tutorial"]}, "2": {"t": "Arms \u2014 combined bulletproofing + PAILs/RAILs", "i": ["Wrist extension PAILs: prayer press into floor \u00d7 20s ramp to max \u00b7 2 rounds each side", "Elbow full extension hold \u00d7 10s \u2014 elbow tendon protection \u00b7 2 rounds", "Reverse curls 2\u00d712 \u2014 elbow and forearm bulletproofing", "Dead hang 30s \u2014 decompress after arm day"], "v": ["wrist PAILs RAILs FRC tutorial", "elbow end range strengthening", "reverse curls elbow tendon health"]}, "3": {"t": "Back \u2014 combined bulletproofing + PAILs/RAILs", "i": ["Dead hang 60s \u2014 spinal decompression after heavy row day", "Lat overhead PAILs: press arm into wall overhead \u00d7 20s \u2192 RAIL reach further \u00d7 10s \u00b7 2 rounds", "Thoracic foam roll 60s \u2014 T-spine mobility", "Thoracic rotation hold \u00d7 20s each side", "Neck rolls \u00d7 5 each direction \u2014 cervical mobility"], "v": ["lat overhead PAILs stretch tutorial", "thoracic spine mobility foam roller", "dead hang spinal decompression"]}, "4": {"t": "Legs \u2014 combined bulletproofing + PAILs/RAILs", "i": ["90/90 hip PAILs/RAILs: 2 min passive hold \u2192 PAIL front shin into floor \u00d7 20s \u2192 RAIL lift front knee \u00d7 10s \u00b7 2 rounds each side", "Reverse Nordic curl 2\u00d78 controlled eccentric \u2014 knee bulletproofing", "Wall ankle dorsiflexion \u00d7 10 each \u2014 squat depth + knee protection", "Deep squat hold 45s \u2014 hip + ankle end range"], "v": ["90 90 hip PAILs RAILs ian markow tutorial", "reverse nordic curl knee bulletproofing how to", "ankle dorsiflexion wall mobility"]}, "5": {"t": "Chest \u2014 combined bulletproofing + PAILs/RAILs (rehab priority)", "i": ["Doorway pec PAILs/RAILs: hold stretch at 90\u00b0 \u2192 PAIL press arm into frame \u00d7 20s ramp to max \u2192 RAIL contract pec deeper \u00d7 10s \u00b7 3 rounds \u2014 most important day of the week for rehab", "Dead hang 60s \u2014 shoulder traction", "Pec isometric holds 3\u00d720s \u2014 tissue loading end range", "Band pull-aparts 1\u00d715 \u2014 posterior shoulder balance"], "v": ["pec PAILs RAILs doorway FRC end range", "pec strain rehab end range isometric", "dead hang shoulder health"]}, "6": {"t": "Murph \u2014 full body combined flow", "i": ["World's greatest stretch \u00d7 5 each side \u2014 hip flexor + thoracic + shoulder all in one", "Deep squat hold 60s \u2014 hip + ankle end range", "90/90 hip PAILs/RAILs \u00d7 1 round each side \u2014 hip maintenance", "Shoulder doorway PAILs/RAILs \u00d7 2 rounds \u2014 shoulder maintenance", "Dead hang 60s \u2014 decompress after Murph"], "v": ["world's greatest stretch tutorial how to", "90 90 hip PAILs RAILs tutorial", "full body mobility flow post workout"]}};
+const D_BP={"1": {"t": "Shoulders \u2014 combined bulletproofing + PAILs/RAILs", "i": ["Dead hang 60s \u2014 spinal decompression + shoulder traction", "Doorway pec PAILs/RAILs: hold stretch at 90\u00b0 \u2192 PAIL press arm into frame \u00d7 20s ramp to max \u2192 RAIL contract deeper \u00d7 10s \u00b7 3 rounds (THIS IS YOUR REHAB)", "Band pull-aparts 2\u00d715 \u2014 posterior shoulder health", "Scapular pull-ups 2\u00d78 \u2014 scap stability", "Pec isometric holds 3\u00d715s \u2014 tissue loading"], "v": ["shoulder PAILs RAILs doorway FRC tutorial", "dead hang shoulder decompression benefits", "scapular pull ups how to tutorial"]}, "2": {"t": "Arms \u2014 combined bulletproofing + PAILs/RAILs", "i": ["Wrist extension PAILs: prayer press into floor \u00d7 20s ramp to max \u00b7 2 rounds each side", "Elbow full extension hold \u00d7 10s \u2014 elbow tendon protection \u00b7 2 rounds", "Reverse curls 2\u00d712 \u2014 elbow and forearm bulletproofing", "Dead hang 30s \u2014 decompress after arm day"], "v": ["wrist PAILs RAILs FRC tutorial", "elbow end range strengthening", "reverse curls elbow tendon health"]}, "3": {"t": "Back \u2014 combined bulletproofing + PAILs/RAILs", "i": ["Dead hang 60s \u2014 spinal decompression after heavy row day", "Lat overhead PAILs: press arm into wall overhead \u00d7 20s \u2192 RAIL reach further \u00d7 10s \u00b7 2 rounds", "Thoracic foam roll 60s \u2014 T-spine mobility", "Thoracic rotation hold \u00d7 20s each side", "Neck rolls \u00d7 5 each direction \u2014 cervical mobility"], "v": ["lat overhead PAILs stretch tutorial", "thoracic spine mobility foam roller", "dead hang spinal decompression"]}, "4": {"t": "Legs \u2014 combined bulletproofing + PAILs/RAILs", "i": ["90/90 hip PAILs/RAILs: 2 min passive hold \u2192 PAIL front shin into floor \u00d7 20s \u2192 RAIL lift front knee \u00d7 10s \u00b7 2 rounds each side", "Reverse Nordic curl 2\u00d78 controlled eccentric \u2014 knee bulletproofing", "Wall ankle dorsiflexion \u00d7 10 each \u2014 squat depth + knee protection", "Deep squat hold 45s \u2014 hip + ankle end range"], "v": ["90 90 hip PAILs RAILs ian markow tutorial", "reverse nordic curl knee bulletproofing how to", "ankle dorsiflexion wall mobility"]}, "5": {"t": "Chest \u2014 combined bulletproofing + PAILs/RAILs (rehab priority)", "i": ["Doorway pec PAILs/RAILs: hold stretch at 90\u00b0 \u2192 PAIL press arm into frame \u00d7 20s ramp to max \u2192 RAIL contract pec deeper \u00d7 10s \u00b7 3 rounds \u2014 most important day of the week for rehab", "Dead hang 60s \u2014 shoulder traction", "Pec isometric holds 3\u00d720s \u2014 tissue loading end range", "Band pull-aparts 1\u00d715 \u2014 posterior shoulder balance"], "v": ["pec PAILs RAILs doorway FRC end range", "pec strain rehab end range isometric", "dead hang shoulder health"]}, "6": {"t": "Long Run Day \u2014 post-run recovery", "i": ["World's greatest stretch \u00d7 5 each side \u2014 hip flexor + thoracic + shoulder all in one", "Deep squat hold 60s \u2014 hip + ankle end range", "90/90 hip PAILs/RAILs \u00d7 1 round each side \u2014 hip maintenance", "Shoulder doorway PAILs/RAILs \u00d7 2 rounds \u2014 shoulder maintenance", "Dead hang 60s \u2014 decompress after Murph"], "v": ["world's greatest stretch tutorial how to", "90 90 hip PAILs RAILs tutorial", "full body mobility flow post workout"]}};
 // PAILs/RAILs now combined into D_BP
+// MARATHON TRAINING - Phase 1 base building (now through end of June)
+// Runs progress automatically each week
+const MARATHON_PLAN={
+  runTypes:{
+    easy:{label:'Easy Run',desc:'Conversational pace — you can hold a full sentence. Never let heart rate go above 140bpm. This builds your aerobic base.',color:'#1a7a50'},
+    moderate:{label:'Moderate Run',desc:'Comfortably hard — you can speak in short sentences. Slightly faster than easy. Builds lactate threshold.',color:'#1a5a9b'},
+    long:{label:'Long Run',desc:'Easy pace the whole way — same as easy run pace. Distance is the goal, not speed. Walk breaks are completely fine.',color:'#9b1a5a'}
+  },
+  // Weekly targets by week number from start (week 1 = now)
+  // [easy_min, moderate_min, long_min]
+  weeks:[
+    [20,30,40],  // week 1
+    [25,35,45],  // week 2
+    [25,35,50],  // week 3
+    [20,30,40],  // week 4 — deload
+    [30,40,55],  // week 5
+    [30,40,60],  // week 6
+    [35,45,70],  // week 7
+    [25,35,50],  // week 8 — deload
+    [35,50,80],  // week 9
+    [40,50,90],  // week 10
+    [40,55,100], // week 11
+    [30,40,70],  // week 12 — deload
+    [45,55,110], // week 13
+    [45,60,120], // week 14
+    [50,60,130], // week 15
+    [35,45,90],  // week 16 — deload
+    [50,65,140], // week 17
+    [50,65,150], // week 18
+    [40,50,110], // week 19 — taper begins
+    [30,40,80],  // week 20
+    [20,30,40],  // week 21 — race week
+    [0,0,0]      // week 22 — race day
+  ]
+};
+// Marathon start date — April 16 2026 (today)
+const MARATHON_START = new Date('2026-04-16');
+function getMarathonWeek(){
+  const now=new Date();
+  const diff=Math.floor((now-MARATHON_START)/(7*24*60*60*1000));
+  return Math.min(Math.max(diff,0),21);
+}
+function getRunTarget(runType){
+  const week=getMarathonWeek();
+  const targets=MARATHON_PLAN.weeks[week]||[20,30,40];
+  if(runType==='easy')return targets[0];
+  if(runType==='moderate')return targets[1];
+  if(runType==='long')return targets[2];
+  return 0;
+}
+
 const D_CARS={1:'Full CARs + extra shoulder CARs',2:'Full CARs + extra wrist + elbow CARs',3:'Full CARs + extra thoracic CARs',4:'Full CARs + extra hip + ankle CARs',5:'Full CARs — shoulder pain-free range only',6:'Full CARs all 6 joints'};
 const D_MCGILL=['Modified curl-up: lie back, one knee bent, hands under lower back — lift head/shoulders × 5 holds of 10s','Side plank: forearm down, body straight — 5 holds of 10s each side','Bird dog: all fours, extend opposite arm + leg, hold 10s × 5 each side'];
 
@@ -436,12 +487,57 @@ function phaseRow(dk,key,label){
   return `<div class="phase-row" onclick="tog('${dk}.phases.${key}');renderAll()"><div class="phase-check ${done?'on':''}">✓</div><div class="phase-label ${done?'on':''}">${label}</div></div>`;
 }
 
+
+// ── MARATHON RUN SECTION ──────────────────────────────────
+function renderMarathonRun(dk,d,runType){
+  const week=getMarathonWeek()+1;
+  const target=getRunTarget(runType);
+  const info=MARATHON_PLAN.runTypes[runType];
+  const actual=parseFloat(g(`${dk}.run.actual`,0))||0;
+  const pct=target>0?Math.min(100,Math.round((actual/target)*100)):0;
+  
+  // Knee tips for run days
+  const kneeTips={
+    easy:'St. George is downhill — train your quads for eccentric loading. On easy days focus on short stride, high cadence (170+ steps/min), slight forward lean.',
+    moderate:'Moderate days build lactate threshold. Find a slight downhill and practice running it — this is St. George specific training.',
+    long:'Long run tip: walk the uphills, run the flats and downhills. Practice the downhill form — lean slightly back, shorten stride, land midfoot not heel.'
+  };
+
+  let H=`<div class="sec"><div class="sh"><div class="st"><div class="dot" style="background:${info.color}"></div>Marathon Training · Week ${week} of 22 · ${info.label}</div></div>
+  <div class="card">
+    <div style="background:${info.color}18;border:1px solid ${info.color}44;border-radius:8px;padding:10px 12px;margin-bottom:10px">
+      <div style="font-size:11px;font-weight:700;color:${info.color};text-transform:uppercase;letter-spacing:.07em;margin-bottom:4px">${info.label} · Target: ${target} min</div>
+      <div style="font-size:11px;color:#555;line-height:1.5">${info.desc}</div>
+    </div>
+    <div style="margin-bottom:4px;font-size:10px;font-weight:600;color:#999;text-transform:uppercase;letter-spacing:.07em">St. George tip</div>
+    <div style="font-size:11px;color:#555;line-height:1.5;margin-bottom:10px">${kneeTips[runType]}</div>
+    <div style="display:flex;align-items:center;gap:10px;margin-bottom:6px">
+      <div><label class="lbl">Actual time (min)</label>
+        <input type="number" min="0" max="300" value="${g(`${dk}.run.actual`,'')}" oninput="sv('${dk}.run.actual',this.value);renderAll()" style="width:70px;font-size:15px;font-weight:700;text-align:center;padding:5px 7px">
+      </div>
+      <div style="flex:1">
+        <div style="font-size:11px;color:#999;margin-bottom:3px">${pct}% of target · ${target} min goal</div>
+        <div class="pbar"><div class="pbf" style="width:${pct}%;background:${info.color}"></div></div>
+      </div>
+    </div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:8px">
+      <div><label class="lbl">Distance (miles)</label><input type="number" step=".1" min="0" value="${g(`${dk}.run.distance`,'')}" oninput="sv('${dk}.run.distance',this.value)" placeholder="0.0"></div>
+      <div><label class="lbl">Avg pace (min/mi)</label><input type="text" value="${esc(g(`${dk}.run.pace`,''))}" oninput="sv('${dk}.run.pace',this.value)" placeholder="e.g. 11:30"></div>
+    </div>
+    <div style="margin-bottom:8px"><label class="lbl">How did it feel? Any knee pain or discomfort?</label>
+      <textarea style="min-height:52px" placeholder="Energy level, knee feeling, breathing, anything to note..." oninput="sv('${dk}.run.notes',this.value)">${esc(g(`${dk}.run.notes`,''))}</textarea>
+    </div>
+    ${phaseRow(dk,'run','Run complete')}
+  </div></div>`;
+  return H;
+}
+
 // ── DARIUS DAY ─────────────────────────────────────────────
 function renderDarius(){
   const mc=document.getElementById('mainContent');
   if(!loaded){mc.innerHTML='<div class="spin-wrap"><div class="spinner"></div>Loading...</div>';return;}
   const d=curDay,cfg=D_DCFG[d],dk=`d_d${d}`;
-  const hk=['scripture','toespacers','axisboard','piano','reading','journal','winddown'];
+  const hk=['scripture','toespacers','sauna','axisboard','piano','reading','journal','winddown'];
   const hd=hk.filter(h=>g(`${dk}.habits.${h}`,false)).length;
   const sh=parseFloat(g(`${dk}.study.hours`,0))||0;
   const td=g(`${dk}.training.done`,false);
@@ -457,22 +553,35 @@ function renderDarius(){
   H+=`<div class="sec"><div class="sh"><div class="st"><div class="dot a-gold"></div>Morning anchor</div></div><div class="card">
     ${hr(dk,'scripture','Scripture reading — 15 min','5:00am','d')}
     ${hr(dk,'toespacers','Toe spacers — wear during morning routine','Morning','d')}
+    ${hr(dk,'sauna','Sauna complete','Morning','d')}
     ${hr(dk,'axisboard','Axisboard Pro + toe spacers — evening balance work','Before bed','d')}
     <div style="font-size:11px;color:#999;padding:4px 0">Toe spacers restore natural foot alignment. Wear during scripture, McGill, CARs — any time you are barefoot and stationary.</div>
   </div></div>`;
 
-  // COLD PLUNGE
+  // SAUNA
   if(d>=1&&d<=6){
-    const ib=d!==6;
-    H+=`<div class="sec"><div class="sh"><div class="st"><div class="dot a-blue"></div>Cold plunge</div></div><div class="card">
-      <div class="phase-row" onclick="tog('${dk}.phases.coldplunge');renderAll()"><div class="phase-check ${g(`${dk}.phases.coldplunge`,false)?'on':''}">✓</div><div class="phase-label">${ib?'Before lifting':'After Murph'} — ${ib?'1–3 min':'3–5 min'}</div></div>
-      <div style="font-size:11px;color:#666;padding:5px 0 2px">${ib?'Pre-plunge → 20–30 min rebound window → by first working set: vasodilated + testosterone primed':'After Murph is your best cold day of the week. Sauna after = full contrast therapy.'}</div>
-      ${[2,3,5,6].includes(d)?`<div style="font-size:11px;color:#999;padding:4px 0">Sauna after — 10–15 min contrast therapy</div>`:''}
-      <div style="margin-top:7px"><label class="lbl">Notes</label><input type="text" value="${esc(g(`${dk}.coldplunge.notes`,''))}" oninput="sv('${dk}.coldplunge.notes',this.value)" placeholder="Temp, duration, how it felt..."></div>
+    const runDay=cfg.run;
+    H+=`<div class="sec"><div class="sh"><div class="st"><div class="dot a-amber"></div>Sauna</div><span style="font-size:10px;color:#999">${runDay?'Turn on arrival — ready during McGill + CARs':'Turn on arrival — ready in 10–15 min'}</span></div><div class="card">
+      <div class="phase-row" onclick="tog('${dk}.phases.sauna');renderAll()"><div class="phase-check ${g(`${dk}.phases.sauna`,false)?'on':''}">✓</div><div class="phase-label">Sauna complete — ${d===6?'post-run 20 min':'15–20 min'}</div></div>
+      <div style="font-size:11px;color:#666;padding:5px 0 4px;line-height:1.6">${runDay?'Turn on when you arrive → do McGill + CARs while it heats → run → sauna → lift. On long run Saturdays: turn on before you leave, sauna when you return.':'Turn on when you arrive → do McGill + CARs while it heats → sauna 15–20 min → lift. Heat exposure before lifting raises core temp, primes the nervous system, and boosts growth hormone.'}</div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:7px">
+        <div><label class="lbl">Duration (min)</label><input type="number" min="5" max="40" value="${g(`${dk}.sauna.duration`,'')}" oninput="sv('${dk}.sauna.duration',this.value)" placeholder="15"></div>
+        <div><label class="lbl">Temp (°F)</label><input type="number" min="140" max="220" value="${g(`${dk}.sauna.temp`,'')}" oninput="sv('${dk}.sauna.temp',this.value)" placeholder="180"></div>
+      </div>
+      <div style="margin-top:7px"><label class="lbl">Notes</label><input type="text" value="${esc(g(`${dk}.sauna.notes`,''))}" oninput="sv('${dk}.sauna.notes',this.value)" placeholder="How it felt, sweat level, energy after..."></div>
     </div></div>`;}
+
+  // RUN
+  if(cfg.run)H+=renderMarathonRun(dk,d,cfg.runType);
 
   // TRAINING
   if(cfg.tr)H+=renderDariusTraining(dk,d);
+  
+  // SATURDAY — long run only
+  if(d===6){
+    H+=`<div class="sec"><div class="sh"><div class="st"><div class="dot a-coral"></div>Saturday — long run only</div></div>
+    <div class="note">No lifting today. Run is the session. McGill + CARs + sauna + run + sauna = done. Get home, eat, rest, recover. Your legs need it for the week ahead.</div></div>`;
+  }
 
   // EVENING
   H+=`<div class="sec"><div class="sh"><div class="st"><div class="dot a-coral"></div>Evening — family</div></div><div class="card">
@@ -602,13 +711,7 @@ function renderDariusTraining(dk,d){
     }
     H+=`</div>`;}
 
-  // Murph tracker
-  if(d===6){
-    H+=`<div style="margin-top:8px">
-      <div class="mr"><div class="ml" style="font-weight:500">Target Cindy rounds</div><input class="mini" type="number" value="${g(`${dk}.training.cindyTarget`,12)}" min="1" max="20" oninput="sv('${dk}.training.cindyTarget',parseInt(this.value))"></div>
-      <div class="mr"><div class="ml">Actual rounds</div><input class="mini" type="number" value="${g(`${dk}.training.cindyActual`,'')}" min="1" max="20" oninput="sv('${dk}.training.cindyActual',parseInt(this.value))"></div>
-      <div class="mr"><div class="ml">Push-up mod</div><input type="text" value="${esc(g(`${dk}.training.pushupMod`,'Elevated hands (bench)'))}" oninput="sv('${dk}.training.pushupMod',this.value)" style="width:140px;font-size:11px;padding:3px 7px"></div>
-    </div>`;}
+
 
   H+=`<div style="margin-top:8px"><label class="lbl">Session notes</label>
     <textarea style="min-height:46px" placeholder="How it felt, PRs, pain signals..." oninput="sv('${dk}.training.notes',this.value)">${esc(g(`${dk}.training.notes`,''))}</textarea>
@@ -796,18 +899,53 @@ function editSupplements(who){
   const defaultSupps=who==='d'?DEFAULT_D_SUPPS:DEFAULT_K_SUPPS;
   let supps;
   try{supps=JSON.parse(g(suppKey,null))||defaultSupps;}catch(e){supps=defaultSupps;}
-
-  const current=supps.map(s=>s.name+' ('+s.time+')').join('\n');
-  const input=prompt('Edit supplements — one per line in format:\nName (Time)\n\nExample:\nCreatine (Morning)\nMagnesium (Night)\n\nCurrent list:\n'+current,current);
-  if(input===null)return;
-
-  const newSupps=input.split('\n').filter(l=>l.trim()).map(l=>{
-    const m=l.match(/^(.+?)\s*\((.+?)\)\s*$/);
-    if(m)return{name:m[1].trim(),time:m[2].trim()};
-    return{name:l.trim(),time:'Daily'};
-  });
-  sv(suppKey,JSON.stringify(newSupps));
-  renderAll();
+  
+  // Build inline editor modal
+  const overlay=document.createElement('div');
+  overlay.style.cssText='position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,0.5);z-index:1000;display:flex;align-items:center;justify-content:center;padding:20px';
+  
+  const modal=document.createElement('div');
+  modal.style.cssText='background:white;border-radius:12px;padding:20px;width:100%;max-width:400px;max-height:80vh;overflow-y:auto';
+  
+  let rows=supps.map((s,i)=>`
+    <div id="supp-row-${i}" style="display:flex;gap:8px;margin-bottom:8px;align-items:center">
+      <input id="supp-name-${i}" type="text" value="${s.name}" placeholder="Supplement name" style="flex:1;padding:7px 9px;border:1px solid #e0ddd6;border-radius:6px;font-size:13px">
+      <input id="supp-time-${i}" type="text" value="${s.time}" placeholder="Time" style="width:90px;padding:7px 9px;border:1px solid #e0ddd6;border-radius:6px;font-size:13px">
+      <button onclick="document.getElementById('supp-row-${i}').remove()" style="width:28px;height:28px;border-radius:50%;border:1px solid #ddd;background:white;color:#999;cursor:pointer;font-size:16px;flex-shrink:0">×</button>
+    </div>`).join('');
+  
+  modal.innerHTML=`
+    <div style="font-size:15px;font-weight:700;margin-bottom:4px">Edit supplements</div>
+    <div style="font-size:11px;color:#999;margin-bottom:14px">Name + when you take it. Tap × to remove.</div>
+    <div id="supp-rows">${rows}</div>
+    <button onclick="
+      const nr=document.createElement('div');
+      const idx=Date.now();
+      nr.id='supp-row-'+idx;
+      nr.style.cssText='display:flex;gap:8px;margin-bottom:8px;align-items:center';
+      nr.innerHTML=\`<input id='supp-name-\${idx}' type='text' placeholder='Supplement name' style='flex:1;padding:7px 9px;border:1px solid #e0ddd6;border-radius:6px;font-size:13px'><input id='supp-time-\${idx}' type='text' placeholder='Time' style='width:90px;padding:7px 9px;border:1px solid #e0ddd6;border-radius:6px;font-size:13px'><button onclick='this.parentNode.remove()' style='width:28px;height:28px;border-radius:50%;border:1px solid #ddd;background:white;color:#999;cursor:pointer;font-size:16px;flex-shrink:0'>×</button>\`;
+      document.getElementById('supp-rows').appendChild(nr);
+    " style="width:100%;padding:8px;border-radius:6px;border:1px dashed #ddd;background:#faf9f6;color:#888;font-size:12px;cursor:pointer;margin-bottom:12px">+ Add supplement</button>
+    <div style="display:flex;gap:8px">
+      <button onclick="
+        const rows=document.querySelectorAll('[id^=supp-row-]');
+        const newSupps=[];
+        rows.forEach(row=>{
+          const idx=row.id.replace('supp-row-','');
+          const name=document.getElementById('supp-name-'+idx);
+          const time=document.getElementById('supp-time-'+idx);
+          if(name&&name.value.trim())newSupps.push({name:name.value.trim(),time:time?time.value.trim()||'Daily':'Daily'});
+        });
+        sv('${suppKey}',JSON.stringify(newSupps));
+        document.body.removeChild(document.getElementById('supp-overlay'));
+        renderAll();
+      " style="flex:1;padding:10px;border-radius:8px;border:none;background:#1a1a1a;color:white;font-size:13px;font-weight:600;cursor:pointer">Save</button>
+      <button onclick="document.body.removeChild(document.getElementById('supp-overlay'))" style="padding:10px 16px;border-radius:8px;border:1px solid #ddd;background:white;color:#666;font-size:13px;cursor:pointer">Cancel</button>
+    </div>`;
+  
+  overlay.id='supp-overlay';
+  overlay.appendChild(modal);
+  document.body.appendChild(overlay);
 }
 
 function renderJournal(dk,d,who){
@@ -1054,7 +1192,7 @@ function renderCal(){
         ${inM&&kTD?`<div class="cdot" style="background:#9b1a5a"></div>`:''}
         ${inM&&dHD>0?`<div class="cdot" style="background:#BA7517"></div>`:''}
         ${inM&&dow===0?`<div class="cdot" style="background:#1a7a50"></div>`:''}
-        ${inM&&dow===6?`<div class="cdot" style="background:#D85A30"></div>`:''}
+        ${inM&&dow===6?`<div class="cdot" style="background:#D85A30" title="Long run"></div>`:''}
       </div>
     </div>`;
   }
@@ -1063,7 +1201,7 @@ function renderCal(){
     <div class="cleg"><div class="cdot" style="background:#9b1a5a"></div>Kelcie trains</div>
     <div class="cleg"><div class="cdot" style="background:#BA7517"></div>Habits</div>
     <div class="cleg"><div class="cdot" style="background:#1a7a50"></div>Sabbath</div>
-    <div class="cleg"><div class="cdot" style="background:#D85A30"></div>Murph</div>
+    <div class="cleg"><div class="cdot" style="background:#D85A30"></div>Long run</div>
   </div>`;
   if(selDate){
     const dt=new Date(selDate),dow=dt.getDay(),ddk=`d_d${dow}`,kdk=`k_d${dow}`;
