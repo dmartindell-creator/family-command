@@ -211,7 +211,7 @@ input[type=number]::-webkit-inner-spin-button{display:none}
 </div>
 
 <script>
-const SHEET='https://script.google.com/macros/s/AKfycbycxvMUZL_gWlq5ZT011Oopk-EFkuLjiz6bH0VJqyAptgguGwPJAsgd35Knskrm7xpEzg/exec';
+const SHEET='https://script.google.com/macros/s/AKfycbyfZLAuEdVRwE61ZPKUbaDZAVpNpvJvnJl972fulcI8un6kHkITS-NnVjt3aVXINx2FgA/exec';
 let _n=0;
 function jsonp(url){
   return new Promise((res,rej)=>{
@@ -240,22 +240,42 @@ const D_DCFG={
   6:{f:'Long Run Day',run:true,runType:'long',tr:null}
 };
 const D_COMP={
-  1:{n:'DB Overhead Press (Wk4+) / Cable Laterals (now)',sets:['Warm-up 1','Warm-up 2','Top Set','Working Set 1','Working Set 2']},
-  2:{n:'Barbell Curl',sets:['Warm-up 1','Warm-up 2','Top Set','Working Set 1','Working Set 2']},
-  3:{n:'Chest-Supported Row',sets:['Warm-up 1','Warm-up 2','Top Set','Working Set 1','Working Set 2']},
-  4:{n:'Leg Press',sets:['Warm-up 1','Warm-up 2','Top Set','Working Set 1','Working Set 2']},
-  5:{n:'Incline DB Press (Wk3+) / Isometric (Wk2)',sets:['Warm-up 1','Warm-up 2','Top Set','Working Set 1','Working Set 2']},
+  1:{n:'DB Overhead Press / Cable Laterals',sets:['Warm-up 1','Warm-up 2','Warm-up 3','Top Set','Working Set 1','Working Set 2']},
+  2:{n:'Strict Curl',sets:['Warm-up 1','Warm-up 2','Warm-up 3','Top Set','Working Set 1','Working Set 2'],n2:'Close Grip Bench Press',sets2:['Warm-up 1','Warm-up 2','Warm-up 3','Top Set','Working Set 1','Working Set 2']},
+  3:{n:'Chest-Supported Row',sets:['Warm-up 1','Warm-up 2','Warm-up 3','Top Set','Working Set 1','Working Set 2']},
+  4:{n:'Leg Press',sets:['Warm-up 1','Warm-up 2','Warm-up 3','Top Set','Working Set 1','Working Set 2']},
+  5:{n:'Bench Press — rotate variation (Regular / Banded / Pause)',sets:['Warm-up 1','Warm-up 2','Warm-up 3','Top Set','Working Set 1','Working Set 2']},
   // Saturday = long run only, no lifting
 };
 const D_SS={
-  1:[[{l:'A',n:'DB lateral raises',s:'3×12 slow eccentric'},{l:'B',n:'Rear delt flys',s:'3×15 · 60s rest'}],[{l:'A',n:'Face pulls',s:'3×15 rope to forehead'},{l:'B',n:'External rotations',s:'3×12 each'},{l:'C',n:'Cable lateral raises',s:'3×12 · 90s rest'}],[{l:'A',n:'Plank',s:'3×30–60s'},{l:'B',n:'Hanging knee raise',s:'3×12'},{l:'C',n:'Ab wheel rollout',s:'3×10'}]],
-  2:[[{l:'A',n:'Hammer curls',s:'3×12 neutral grip'},{l:'B',n:'Rope pushdowns',s:'3×12'}],[{l:'A',n:'Cable curls',s:'3×12'},{l:'B',n:'Cable kickbacks',s:'3×12'},{l:'C',n:'Reverse curls',s:'3×12'}]],
-  3:[[{l:'A',n:'Lat pulldown neutral grip',s:'3×10 elbows DOWN'},{l:'B',n:'Seated cable rows',s:'3×12'}],[{l:'A',n:'Rear delt flys',s:'3×15'},{l:'B',n:'Face pulls',s:'3×15'},{l:'C',n:'Dead bug',s:'3×10'}]],
-  4:[[{l:'A',n:'Romanian deadlifts',s:'3×10'},{l:'B',n:'Hamstring curls',s:'3×12'}],[{l:'A',n:'Bulgarian split squats',s:'3×10 each'},{l:'B',n:'Calf raises',s:'3×15'}]],
-  5:[[{l:'A',n:'Flat DB press (Wk4+)',s:'3×10 elbows 45°'},{l:'B',n:'Cable rows',s:'3×12'}],[{l:'A',n:'Cable crossovers (Wk5+)',s:'3×12'},{l:'B',n:'Face pulls',s:'3×15'}]],
+  1:[
+    [{l:'A',n:'DB lateral raises',s:'3×12 slow eccentric'},{l:'B',n:'Internal DB rotation',s:'3×12 each — elbow at 90°, rotate in'},{l:'C',n:'Rear delt flys',s:'3×15'}],
+    [{l:'A',n:'External rotation (seated DB)',s:'3×12 — 10% bodyweight, elbow on knee'},{l:'B',n:'Incline Powell raise',s:'3×10 — 10% bodyweight, single arm arc on incline bench'},{l:'C',n:'Incline Trap-3 raise',s:'3×8 — 10% bodyweight, Y-shape at top on incline bench'}],
+    [{l:'A',n:'Hanging knee raise',s:'3×12'},{l:'B',n:'Ab wheel rollout',s:'3×10'},{l:'C',n:'Reverse crunches',s:'3×12 — hip flexor + lower abs'},{l:'D',n:'Plank',s:'3×45–60s — finish here'}]
+  ],
+  2:[
+    [{l:'A',n:'Rope pushdowns',s:'3×12 — squeeze at bottom'},{l:'B',n:'Overhead tricep extension',s:'3×12 — full stretch at top'},{l:'C',n:'Tricep dips (bodyweight)',s:'3×8 — full range controlled'}],
+    [{l:'A',n:'Incline DB curl',s:'3×10 — full stretch at bottom'},{l:'B',n:'Hammer curls',s:'3×12 neutral grip'},{l:'C',n:'Reverse curls',s:'3×10 — forearm + elbow health'}]
+  ],
+  3:[
+    [{l:'A',n:'Lat pulldown neutral grip',s:'3×10 elbows DOWN'},{l:'B',n:'Seated cable rows',s:'3×12'},{l:'C',n:'Single arm DB row',s:'3×10 each — full stretch'},{l:'D',n:'Face pulls',s:'3×15 — rear delt + rotator cuff'}],
+    [{l:'A',n:'Hanging knee raise',s:'3×12'},{l:'B',n:'Ab wheel rollout',s:'3×10'},{l:'C',n:'Reverse crunches',s:'3×12 — hip flexor + lower abs'},{l:'D',n:'Plank',s:'3×45–60s — finish here'}]
+  ],
+  4:[
+    [{l:'A',n:'Tibialis raises',s:'2×20 — back to wall, curl toes toward shin (first line of knee defense)'},{l:'B',n:'Backward walking',s:'2 min slow — knees over toes, joint warming'}],
+    [{l:'A',n:'ATG split squat hold',s:'30s each side — front heel under hip, back knee hovering'},{l:'B',n:'Reverse Nordic curl',s:'2×8 controlled eccentric — single most important knee exercise'}],
+    [{l:'A',n:'Romanian deadlifts',s:'3×10'},{l:'B',n:'Hamstring curls',s:'3×12'}],
+    [{l:'A',n:'Bulgarian split squats',s:'3×10 each'},{l:'B',n:'KOT calf raise',s:'2×15 each — knees over toes, slow lower'}]
+  ],
+  5:[
+    [{l:'A',n:'Incline DB press',s:'3×10 elbows 45°'},{l:'B',n:'Flat DB press',s:'3×10 full range'}],
+    [{l:'A',n:'Cable crossovers / pec deck',s:'3×12 — peak contraction'},{l:'B',n:'Dips (bodyweight or assisted)',s:'3×8 — full range, controlled'}],
+    [{l:'A',n:'External rotation (seated DB)',s:'3×12 — 10% bodyweight'},{l:'B',n:'Incline Powell raise',s:'3×10 — 10% bodyweight'},{l:'C',n:'Incline Trap-3 raise',s:'3×8 — 10% bodyweight'}],
+    [{l:'A',n:'Plank',s:'3×45–60s'},{l:'B',n:'Hanging knee raise',s:'3×12'},{l:'C',n:'Ab wheel rollout',s:'3×10'},{l:'D',n:'Reverse crunches',s:'3×12'}]
+  ],
   6:[]
 };
-const D_BP={"1": {"t": "Shoulders \u2014 combined bulletproofing + PAILs/RAILs", "i": ["Dead hang 60s \u2014 spinal decompression + shoulder traction", "Doorway pec PAILs/RAILs: hold stretch at 90\u00b0 \u2192 PAIL press arm into frame \u00d7 20s ramp to max \u2192 RAIL contract deeper \u00d7 10s \u00b7 3 rounds (THIS IS YOUR REHAB)", "Band pull-aparts 2\u00d715 \u2014 posterior shoulder health", "Scapular pull-ups 2\u00d78 \u2014 scap stability", "Pec isometric holds 3\u00d715s \u2014 tissue loading"], "v": ["shoulder PAILs RAILs doorway FRC tutorial", "dead hang shoulder decompression benefits", "scapular pull ups how to tutorial"]}, "2": {"t": "Arms \u2014 combined bulletproofing + PAILs/RAILs", "i": ["Wrist extension PAILs: prayer press into floor \u00d7 20s ramp to max \u00b7 2 rounds each side", "Elbow full extension hold \u00d7 10s \u2014 elbow tendon protection \u00b7 2 rounds", "Reverse curls 2\u00d712 \u2014 elbow and forearm bulletproofing", "Dead hang 30s \u2014 decompress after arm day"], "v": ["wrist PAILs RAILs FRC tutorial", "elbow end range strengthening", "reverse curls elbow tendon health"]}, "3": {"t": "Back \u2014 combined bulletproofing + PAILs/RAILs", "i": ["Dead hang 60s \u2014 spinal decompression after heavy row day", "Lat overhead PAILs: press arm into wall overhead \u00d7 20s \u2192 RAIL reach further \u00d7 10s \u00b7 2 rounds", "Thoracic foam roll 60s \u2014 T-spine mobility", "Thoracic rotation hold \u00d7 20s each side", "Neck rolls \u00d7 5 each direction \u2014 cervical mobility"], "v": ["lat overhead PAILs stretch tutorial", "thoracic spine mobility foam roller", "dead hang spinal decompression"]}, "4": {"t": "Legs \u2014 combined bulletproofing + PAILs/RAILs", "i": ["90/90 hip PAILs/RAILs: 2 min passive hold \u2192 PAIL front shin into floor \u00d7 20s \u2192 RAIL lift front knee \u00d7 10s \u00b7 2 rounds each side", "Reverse Nordic curl 2\u00d78 controlled eccentric \u2014 knee bulletproofing", "Wall ankle dorsiflexion \u00d7 10 each \u2014 squat depth + knee protection", "Deep squat hold 45s \u2014 hip + ankle end range"], "v": ["90 90 hip PAILs RAILs ian markow tutorial", "reverse nordic curl knee bulletproofing how to", "ankle dorsiflexion wall mobility"]}, "5": {"t": "Chest \u2014 combined bulletproofing + PAILs/RAILs (rehab priority)", "i": ["Doorway pec PAILs/RAILs: hold stretch at 90\u00b0 \u2192 PAIL press arm into frame \u00d7 20s ramp to max \u2192 RAIL contract pec deeper \u00d7 10s \u00b7 3 rounds \u2014 most important day of the week for rehab", "Dead hang 60s \u2014 shoulder traction", "Pec isometric holds 3\u00d720s \u2014 tissue loading end range", "Band pull-aparts 1\u00d715 \u2014 posterior shoulder balance"], "v": ["pec PAILs RAILs doorway FRC end range", "pec strain rehab end range isometric", "dead hang shoulder health"]}, "6": {"t": "Long Run Day \u2014 post-run recovery", "i": ["World's greatest stretch \u00d7 5 each side \u2014 hip flexor + thoracic + shoulder all in one", "Deep squat hold 60s \u2014 hip + ankle end range", "90/90 hip PAILs/RAILs \u00d7 1 round each side \u2014 hip maintenance", "Shoulder doorway PAILs/RAILs \u00d7 2 rounds \u2014 shoulder maintenance", "Dead hang 60s \u2014 decompress after Murph"], "v": ["world's greatest stretch tutorial how to", "90 90 hip PAILs RAILs tutorial", "full body mobility flow post workout"]}};
+const D_BP={"1": {"t": "Shoulder \u2014 ATG standards + rotator cuff", "i": ["Dead hang 60s \u2014 spinal decompression + shoulder traction", "External rotation 3x12 \u2014 10% bodyweight, seated DB on knee, elbow fixed", "Incline Powell raise 3x10 \u2014 10% bodyweight, single arm arc on incline bench", "Incline Trap-3 raise 3x8 \u2014 10% bodyweight, Y-shape at top on incline bench", "Pec isometric holds 3x15s \u2014 tissue loading for rehab"], "v": ["external rotation seated dumbbell ATG standard shoulder", "incline powell raise shoulder exercise tutorial", "incline trap 3 raise lower trapezius tutorial", "dead hang shoulder decompression"]}, "2": {"t": "Arms + shoulder longevity", "i": ["Wrist extension PAILs x20s each \u2014 elbow tendon protection", "External rotation seated DB 2x12 \u2014 10% bodyweight", "Reverse curls 2x10 \u2014 elbow + forearm bulletproofing", "Dead hang 30s \u2014 decompress after arm day"], "v": ["wrist PAILs RAILs FRC tutorial", "external rotation seated dumbbell shoulder", "reverse curl elbow health forearm"]}, "3": {"t": "Upper chain \u2014 back + shoulder", "i": ["Dead hang 60s \u2014 spinal decompression after heavy row day", "Lat overhead PAILs: press arm into wall x20s then RAIL reach further x10s, 2 rounds", "Thoracic foam roll 60s \u2014 T-spine mobility", "Neck rolls x5 each direction"], "v": ["lat overhead PAILs stretch tutorial", "thoracic spine foam roller mobility", "dead hang spinal decompression"]}, "4": {"t": "Knees + ankles \u2014 ATG protocol", "i": ["Tibialis raises 2x20 \u2014 back to wall, feet forward, curl toes toward shin (first line of knee defense for St. George descent)", "Backward walking 2 min \u2014 slow + controlled, knees over toes \u2014 protective for downhill running", "ATG split squat hold 30s each side \u2014 front heel under hip, back knee hovering just off floor", "Reverse Nordic curl 2x8 controlled eccentric \u2014 single most important knee bulletproof exercise", "KOT calf raise 2x15 each \u2014 knees over toes, slow lower, builds Achilles + knee resilience", "Wall ankle dorsiflexion x10 each \u2014 squat depth + knee tracking"], "v": ["tibialis raise wall kneesovertoesguy tutorial", "ATG split squat tutorial beginner kneesovertoesguy", "reverse nordic curl knee bulletproofing how to", "backward walking knee health kneesovertoesguy"]}, "5": {"t": "Chest \u2014 ATG standards + pec rehab", "i": ["External rotation seated DB 3x12 \u2014 10% bodyweight, always after pressing", "Incline Powell raise 3x10 \u2014 10% bodyweight, shoulder longevity on chest day", "Incline Trap-3 raise 3x8 \u2014 10% bodyweight, upper back balance to pressing", "Pec doorway PAILs/RAILs 3 rounds \u2014 most important rehab movement of the week", "Dead hang 60s \u2014 decompress after pressing"], "v": ["external rotation seated dumbbell shoulder health", "incline powell raise shoulder exercise", "incline trap 3 raise exercise tutorial", "pec PAILs RAILs doorway FRC"]}, "6": {"t": "Long Run Day \u2014 post-run recovery", "i": ["World's greatest stretch \u00d7 5 each side \u2014 hip flexor + thoracic + shoulder all in one", "Deep squat hold 60s \u2014 hip + ankle end range", "90/90 hip PAILs/RAILs \u00d7 1 round each side \u2014 hip maintenance", "Shoulder doorway PAILs/RAILs \u00d7 2 rounds \u2014 shoulder maintenance", "Dead hang 60s \u2014 decompress after Murph"], "v": ["world's greatest stretch tutorial how to", "90 90 hip PAILs RAILs tutorial", "full body mobility flow post workout"]}};
 // PAILs/RAILs now combined into D_BP
 // MARATHON TRAINING - Phase 1 base building (now through end of June)
 // Runs progress automatically each week
@@ -323,10 +343,10 @@ const D_PROMPTS={
 const D_WD=[
   {t:'Hard stop on school 10:15pm — write tomorrow\'s first task, close laptop',v:null},
   {t:'Prep tomorrow: gym bag, clothes, water bottle — reduce 5am friction',v:null},
-  {t:'Axisboard Pro + toe spacers — 5–10 min balance work before bed (see notes below)',v:'sidekick axisboard pro exercises tutorial'},
+  {t:'Axisboard Pro + foot exercises — 5–10 min before homework (~8pm)',v:'sidekick axisboard pro exercises tutorial'},
   {t:'4-7-8 breathing: inhale 4s → hold 7s → exhale 8s × 4 rounds',v:'4 7 8 breathing technique tutorial Andrew Weil'},
   {t:'Week 3+: 10-min NSDR body scan — Insight Timer app (free, download offline)',v:'NSDR non sleep deep rest body scan guided'},
-  {t:'Asleep by 11pm — 5am wake = 6 hours',v:null}
+  {t:'Asleep by 10pm — 5:30am wake = 7.5 hours',v:null}
 ];
 
 const K_PROMPTS={
@@ -552,12 +572,12 @@ function renderDarius(){
   // MORNING
   H+=`<div class="sec"><div class="sh"><div class="st"><div class="dot a-gold"></div>Morning anchor</div></div><div class="card">
     ${hr(dk,'scripture','Scripture reading — 15 min','5:00am','d')}
-    ${hr(dk,'toespacers','Toe spacers — wear during morning routine','Morning','d')}
-    <div style="font-size:11px;color:#999;padding:4px 0">Toe spacers restore natural foot alignment. Wear during scripture, McGill + CARs — any barefoot stationary time in the morning.</div>
+    ${hr(dk,'toespacers','Toe spacers — wear during school/work','School time','d')}
+    <div style="font-size:11px;color:#999;padding:4px 0">Toe spacers restore natural foot alignment. Wear while doing homework — you are sitting and stationary, perfect time to build foot health passively.</div>
   </div></div>`;
 
-  // SAUNA
-  if(d>=1&&d<=6){
+  // SAUNA — Saturday only
+  if(d===6){
     const runDay=cfg.run;
     H+=`<div class="sec"><div class="sh"><div class="st"><div class="dot a-amber"></div>Sauna</div><div style="display:flex;align-items:center;gap:6px"><span style="font-size:10px;color:#999">Turn on at 5:30 — ready by 5:40</span><span style="font-size:10px;font-weight:600;color:#1a5a9b;background:#e6eef8;padding:2px 7px;border-radius:5px">5:40am · 15–20 min</span></div></div><div class="card">
       <div class="phase-row" onclick="tog('${dk}.phases.sauna');renderAll()"><div class="phase-check ${g(`${dk}.phases.sauna`,false)?'on':''}">✓</div><div class="phase-label">Sauna complete — ${d===6?'post-run 20 min':'15–20 min'}</div></div>
@@ -569,17 +589,8 @@ function renderDarius(){
       <div style="margin-top:7px"><label class="lbl">Notes</label><input type="text" value="${esc(g(`${dk}.sauna.notes`,''))}" oninput="sv('${dk}.sauna.notes',this.value)" placeholder="How it felt, sweat level, energy after..."></div>
     </div></div>`;}
 
-  // RUN
-  if(cfg.run)H+=renderMarathonRun(dk,d,cfg.runType);
-
-  // TRAINING
-  if(cfg.tr)H+=renderDariusTraining(dk,d);
-  
-  // SATURDAY — long run only
-  if(d===6){
-    H+=`<div class="sec"><div class="sh"><div class="st"><div class="dot a-coral"></div>Saturday — long run only</div></div>
-    <div class="note">No lifting today. Run is the session. McGill + CARs + sauna + run + sauna = done. Get home, eat, rest, recover. Your legs need it for the week ahead.</div></div>`;
-  }
+  // TRAINING (marathon run is now Phase 4/5 inside renderDariusTraining)
+  if(cfg.tr||cfg.run)H+=renderDariusTraining(dk,d);
 
   // EVENING
   H+=`<div class="sec"><div class="sh"><div class="st"><div class="dot a-coral"></div>Evening — family</div></div><div class="card">
@@ -593,11 +604,25 @@ function renderDarius(){
   </div></div>`;
 
   // SCHOOL
-  if(d!==6&&d!==0)H+=renderStudy(dk,'d');
+  // BEFORE SCHOOL BLOCK — reading + axisboard
+  if(d!==6&&d!==0){
+    H+=`<div class="sec"><div class="sh"><div class="st"><div class="dot a-sky"></div>Before school · reading + axisboard</div><span style="font-size:10px;color:#999">~8pm · 25 min</span></div>
+    <div class="card">
+      ${hr(dk,'reading','Self-interest reading — 15 min','8:00pm','d')}
+      <div style="margin-top:8px;padding-top:8px;border-top:1px solid #f0ede6">
+        <div style="font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.08em;color:#999;margin-bottom:5px">Axisboard Pro + toe spacers</div>
+        <div style="font-size:11px;color:#555;line-height:1.5;margin-bottom:7px">5–10 min before school. Put toe spacers on, stand on the Axisboard. Balance work at low intensity is calming for your nervous system — it's a natural transition into focus mode. Single leg balance, lateral rocks, forward/back, squat holds.</div>
+        <a class="vl" href="https://www.youtube.com/results?search_query=sidekick+axisboard+pro+exercises+tutorial" target="_blank">▶ Axisboard exercises</a>
+        <div style="margin-top:7px">${hr(dk,'axisboard','Axisboard Pro + toe spacers done','Before school','d')}</div>
+      </div>
+    </div></div>`;
+  }
+  if(d!==6&&d!==0)H+=renderStudyDarius(dk,d);
 
   // READING
-  H+=`<div class="sec"><div class="sh"><div class="st"><div class="dot a-sky"></div>Self-interest reading</div></div><div class="card">
-    ${hr(dk,'reading','Reading — 15 min','After wife time','d')}
+  // Reading moved to before-school block below
+  H+=`<div class="sec" style="display:none"><div class="sh"><div class="st"><div class="dot a-sky"></div>Self-interest reading</div></div><div class="card">
+    ${hr(dk,'reading','Reading — 15 min','Before school','d')}
     <div style="margin-top:8px;display:grid;grid-template-columns:1fr 1fr;gap:8px">
       <div><label class="lbl">Book title</label><input type="text" value="${esc(g(`${dk}.reading.book`,''))}" oninput="sv('${dk}.reading.book',this.value)" placeholder="What are you reading?"></div>
       <div><label class="lbl">Genre</label>
@@ -638,21 +663,21 @@ function renderDariusTraining(dk,d){
 
   // ── SESSION TIMELINE ──────────────────────────────────────
   let timeline=[];
-  timeline.push({t:'5:30am',l:'Arrive — turn sauna on',c:'#888'});
-  timeline.push({t:'5:30',l:'Phase 1 — McGill Big 3 · 5 min',c:'#1a5a9b'});
-  timeline.push({t:'5:35',l:'Phase 2 — CARs · 5 min',c:'#1a5a9b'});
-  timeline.push({t:'5:40',l:'Phase 3 — Sauna · 15–20 min',c:'#EF9F27'});
-  timeline.push({t:'5:55',l:'Phase 4 — Shoulder activation · 5 min',c:'#1a5a9b'});
+  timeline.push({t:'5:45am',l:'Arrive',c:'#888'});
+  timeline.push({t:'5:45',l:'Phase 1 — McGill Big 3 · 5 min',c:'#1a5a9b'});
+  timeline.push({t:'5:50',l:'Phase 2 — CARs · 5 min',c:'#1a5a9b'});
+  timeline.push({t:'5:55',l:`Phase 3 — Activation · ${{1:'Lower body + shoulder',2:'Shoulder + elbow + wrist',3:'Lower body + upper back',4:'Lower body + knee focus',5:'Lower body + chest',6:'Full lower body dynamic'}[d]||'full body'} · 5 min`,c:'#4ade80'});
   if(isRunDay){
-    timeline.push({t:'6:00',l:`Phase 5 — Marathon run · ${runTarget} min target`,c:'#1a7a50'});
-    timeline.push({t:'after run',l:'Phase 6 — Pre-lift warm-up · 5 min',c:'#1a5a9b'});
-    timeline.push({t:'after warm-up',l:'Phase 7 — Main lift + supersets · 35 min',c:'#7F77DD'});
+    timeline.push({t:'6:00',l:`Phase 4 — Marathon run · ${runTarget} min`,c:'#1a7a50'});
+    timeline.push({t:'after run',l:'Phase 5 — Pre-lift warm-up · 5 min',c:'#1a5a9b'});
+    timeline.push({t:'after warm-up',l:'Phase 6 — Main lift + supersets · 35 min',c:'#7F77DD'});
+    timeline.push({t:'~6:50',l:'Phase 7 — Bulletproofing + PAILs/RAILs · 8 min',c:'#1D9E75'});
   } else {
-    timeline.push({t:'6:00',l:'Phase 5 — Zone 2 run · 10 min',c:'#1a7a50'});
-    timeline.push({t:'6:10',l:'Phase 6 — Main lift + supersets · 35 min',c:'#7F77DD'});
+    timeline.push({t:'6:00',l:'Phase 4 — Zone 2 run · 10 min',c:'#1a7a50'});
+    timeline.push({t:'6:10',l:'Phase 5 — Main lift + supersets · 35 min',c:'#7F77DD'});
+    timeline.push({t:'~6:45',l:'Phase 6 — Bulletproofing + PAILs/RAILs · 8 min',c:'#1D9E75'});
   }
-  timeline.push({t:'~6:50',l:'Phase 7 — Bulletproofing + PAILs/RAILs · 8 min',c:'#1D9E75'});
-  timeline.push({t:'~7:00am',l:'Home ✓',c:'#1a7a50'});
+  timeline.push({t:'7:00am',l:'Home ✓',c:'#1a7a50'});
 
   let H=`<div class="sec"><div class="sh"><div class="st"><div class="dot a-teal"></div>Training · ${D_DCFG[d].tr||'Session'}</div></div>
   <div class="card" style="background:#faf9f6;margin-bottom:5px">
@@ -670,7 +695,7 @@ function renderDariusTraining(dk,d){
   H+=`<div class="card">
     <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:5px;padding-bottom:4px;border-bottom:1px solid #f0ede6">
       <div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:#999">Phase 1 — McGill Big 3</div>
-      <div style="font-size:10px;font-weight:600;color:#1a5a9b;background:#e6eef8;padding:2px 7px;border-radius:5px">5:30am · 5 min</div>
+      <div style="font-size:10px;font-weight:600;color:#1a5a9b;background:#e6eef8;padding:2px 7px;border-radius:5px">5:45am · 5 min</div>
     </div>
     ${phaseRow(dk,'mcgill','McGill Big 3 complete')}
     ${D_MCGILL.map(m=>`<div style="font-size:11px;color:#555;padding:4px 0 4px 28px;border-bottom:1px solid #f0ede6;line-height:1.5">${m}</div>`).join('')}
@@ -682,7 +707,7 @@ function renderDariusTraining(dk,d){
   H+=`<div class="card">
     <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:5px">
       <div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:#999">Phase 2 — CARs · ${cars}</div>
-      <div style="font-size:10px;font-weight:600;color:#1a5a9b;background:#e6eef8;padding:2px 7px;border-radius:5px">5:35am · 5 min</div>
+      <div style="font-size:10px;font-weight:600;color:#1a5a9b;background:#e6eef8;padding:2px 7px;border-radius:5px">5:50am · 5 min</div>
     </div>
     ${phaseRow(dk,'cars','CARs complete')}
     <div style="font-size:11px;color:#555;line-height:1.5;padding:4px 0 6px">Squeeze fists + brace core + tense glutes WHILE moving the joint. Neck → shoulder → thoracic → wrist → hip → ankle.</div>
@@ -694,7 +719,7 @@ function renderDariusTraining(dk,d){
   H+=`<div class="card">
     <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:5px">
       <div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:#999">Phase 3 — Sauna</div>
-      <div style="font-size:10px;font-weight:600;color:#EF9F27;background:#fdf3dc;padding:2px 7px;border-radius:5px">5:40am · 15–20 min</div>
+      <div style="font-size:10px;font-weight:600;color:#EF9F27;background:#fdf3dc;padding:2px 7px;border-radius:5px">Sat only — 15 min</div>
     </div>
     ${phaseRow(dk,'sauna','Sauna complete')}
     <div style="font-size:11px;color:#555;line-height:1.5;padding:4px 0 6px">${isRunDay?'Sauna ready by the time McGill + CARs are done. 15 min in sauna → out → shoulder activation → run. Heat primes nervous system and raises core temp before your run.':'Sauna ready by the time McGill + CARs are done. 15–20 min → out → shoulder activation → Zone 2 run → lift. Heat before lifting raises growth hormone and primes the nervous system.'}</div>
@@ -708,25 +733,25 @@ function renderDariusTraining(dk,d){
   // ── PHASE 4 — Context-specific activation ────────────────
   const D_ACT={
     1:{label:'Lower body (run) + Shoulder (overhead press)',cats:[
-      {cat:'🏃 Run prep',ex:[['Glute bridges','2×10 — fire glutes before run'],['Banded side walks','2×10 each — hip abductors'],['Leg swings forward','×10 each — dynamic hip'],['Ankle circles','×10 each — ground contact prep'],['Air squats slow','×10 — full chain primer']]},
-      {cat:'💪 Lift prep — overhead press',ex:[['Band pull-aparts','2×15 — rear delt + rotator cuff'],['External rotations','2×12 each — shoulder health'],['Wall slides','2×10 — scapular upward rotation'],['Arm circles small to big','×10 each direction']]}
+      {cat:'🏃 Run prep',ex:[['Backward walking','2 min — knees over toes, warms knee joint'],['Tibialis raises','2×15 — shin decelerator for downhill running'],['Glute bridges','2×10 — fire glutes before run'],['Banded side walks','2×10 each — hip abductors'],['Leg swings forward','×10 each — dynamic hip'],['Ankle circles','×10 each — ground contact prep']]},
+      {cat:'💪 Lift prep — overhead press',ex:[['Dips (bodyweight)','2×8 — full range controlled warm-up'],['Band pull-aparts','2×15 — rear delt + rotator cuff'],['External rotations','2×12 each — shoulder health'],['Wall slides','2×10 — scapular upward rotation']]}
     ]},
     2:{label:'Shoulder + elbow + wrist (arms day)',cats:[
       {cat:'💪 Lift prep — curls + pushdowns',ex:[['Wrist circles','×10 each direction — elbow tendon prep'],['Band pull-aparts','2×15 — shoulder stability'],['External rotations','2×12 each — rotator cuff'],['Reverse curls light','2×10 — elbow warm up'],['Finger extensions','×10 — forearm balance']]}
     ]},
     3:{label:'Lower body (run) + Upper back (rows)',cats:[
-      {cat:'🏃 Run prep',ex:[['Glute bridges','2×10 — fire glutes before run'],['Banded side walks','2×10 each — hip abductors'],['Leg swings forward + lateral','×10 each — full hip mobility'],['Ankle circles','×10 each — ground contact prep'],['Air squats slow','×10 — full chain primer']]},
+      {cat:'🏃 Run prep',ex:[['Backward walking','2 min — knees over toes, warms knee joint'],['Tibialis raises','2×15 — shin decelerator for downhill running'],['Glute bridges','2×10 — fire glutes before run'],['Banded side walks','2×10 each — hip abductors'],['Leg swings forward + lateral','×10 each — full hip mobility'],['Ankle circles','×10 each — ground contact prep']]},
       {cat:'💪 Lift prep — rows + back',ex:[['Band pull-aparts','2×15 — scapular retraction'],['Face pulls','2×15 — rear delt + external rotation'],['Scapular retractions','2×10 — mid back activation'],['Dead hang','20–30s — lat lengthening before rows']]}
     ]},
     4:{label:'Lower body + knee focus (leg press + squats)',cats:[
       {cat:'🦵 Leg day + knee prep',ex:[['Glute bridges','2×15 — max hip activation'],['Banded side walks','2×15 each — hip abductors for knee stability'],['Wall ankle dorsiflexion','×10 each — squat depth + knee tracking'],['Leg swings','×10 each — hip mobility'],['Bodyweight squats slow','2×10 — full chain activation'],['Single leg balance','20s each — proprioception + knee stability']]}
     ]},
     5:{label:'Lower body (run) + Chest/push prep (rehab safe)',cats:[
-      {cat:'🏃 Run prep',ex:[['Glute bridges','2×10 — fire glutes before run'],['Banded side walks','2×10 each — hip abductors'],['Leg swings forward','×10 each — dynamic hip'],['Ankle circles','×10 each — ground contact prep'],['Air squats slow','×10 — full chain primer']]},
+      {cat:'🏃 Run prep',ex:[['Backward walking','2 min — knees over toes, warms knee joint'],['Tibialis raises','2×15 — shin decelerator for downhill running'],['Glute bridges','2×10 — fire glutes before run'],['Banded side walks','2×10 each — hip abductors'],['Leg swings forward','×10 each — dynamic hip'],['Ankle circles','×10 each — ground contact prep']]},
       {cat:'💪 Lift prep — chest (rehab safe)',ex:[['Band pull-aparts','2×15 — posterior shoulder balance'],['External rotations','2×12 each — rotator cuff protection'],['Pec isometric holds','3×10s pain-free range only'],['Face pulls','2×15 — always before pressing']]}
     ]},
     6:{label:'Full lower body dynamic (long run)',cats:[
-      {cat:'🏃 Long run prep — full dynamic',ex:[['Glute bridges','2×15 — full hip activation'],['Banded side walks','2×15 each'],['Leg swings forward + lateral','×10 each side'],['Ankle circles + calf raises','×10 each'],['Hip circles','×10 each — full hip mobility'],['Dynamic lunges with reach','×5 each — thoracic + hip'],['High knees 10s + butt kicks 10s','— full warm-up primer']]}
+      {cat:'🏃 Long run prep — full dynamic',ex:[['Backward walking','3 min — most important knee prep for long run'],['Tibialis raises','2×20 — critical for St. George 2600ft descent'],['Glute bridges','2×15 — full hip activation'],['Banded side walks','2×15 each'],['Leg swings forward + lateral','×10 each side'],['Ankle circles + calf raises','×10 each'],['Hip circles','×10 each — full hip mobility'],['Dynamic lunges with reach','×5 each'],['High knees 10s + butt kicks 10s','— full primer']]}
     ]}
   };
   const actData=D_ACT[d];
@@ -734,7 +759,7 @@ function renderDariusTraining(dk,d){
     H+=`<div class="card">
       <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:5px">
         <div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:#999">Phase 4 — Activation · ${actData.label}</div>
-        <div style="font-size:10px;font-weight:600;color:#1a5a9b;background:#e6eef8;padding:2px 7px;border-radius:5px">5:55am · 5–8 min</div>
+        <div style="font-size:10px;font-weight:600;color:#1a5a9b;background:#e6eef8;padding:2px 7px;border-radius:5px">5:55am · 5 min</div>
       </div>
       ${phaseRow(dk,'shoulder','Activation complete')}
       ${actData.cats.map((cat,ci)=>`
@@ -746,8 +771,52 @@ function renderDariusTraining(dk,d){
         </div>`).join('')}
     </div>`;}
 
-  // ── PHASE 5 — Run ────────────────────────────────────────
+  // ── PHASE 4 — Marathon run / Zone 2 ──────────────────────
   if(isRunDay){
+    const runInfo=MARATHON_PLAN.runTypes[runType];
+    const runTarget2=getRunTarget(runType);
+    const runActual=parseFloat(g(`${dk}.run.actual`,0))||0;
+    const runPct=runTarget2>0?Math.min(100,Math.round((runActual/runTarget2)*100)):0;
+    const week=getMarathonWeek()+1;
+    H+=`<div class="card">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:5px">
+        <div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:#999">Phase 4 — Marathon Training · Week ${week}/22 · ${runInfo.label}</div>
+        <div style="font-size:10px;font-weight:600;color:#1a7a50;background:#e0f3ea;padding:2px 7px;border-radius:5px">6:00am · ${runTarget2} min</div>
+      </div>
+      ${phaseRow(dk,'phase4run','Marathon run complete')}
+      <div style="background:#e0f3ea;border:1px solid #1a7a5044;border-radius:8px;padding:10px 12px;margin:8px 0">
+        <div style="font-size:11px;font-weight:700;color:#1a7a50;margin-bottom:3px">${runInfo.label} · Target: ${runTarget2} min</div>
+        <div style="font-size:11px;color:#555;line-height:1.5">${runInfo.desc}</div>
+      </div>
+      <div style="display:flex;align-items:center;gap:10px;margin-bottom:8px">
+        <div><label class="lbl">Actual (min)</label>
+          <input type="text" inputmode="decimal" value="${g(`${dk}.run.actual`,'')}" onchange="sv('${dk}.run.actual',this.value);renderAll()" style="width:70px;font-size:15px;font-weight:700;text-align:center;padding:5px 7px">
+        </div>
+        <div style="flex:1">
+          <div style="font-size:11px;color:#999;margin-bottom:3px">${runPct}% · target ${runTarget2} min</div>
+          <div class="pbar"><div class="pbf" style="width:${runPct}%;background:#1a7a50"></div></div>
+        </div>
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:8px">
+        <div><label class="lbl">Distance (mi)</label><input type="text" inputmode="decimal" value="${g(`${dk}.run.distance`,'')}" oninput="sv('${dk}.run.distance',this.value)" placeholder="0.0"></div>
+        <div><label class="lbl">Avg pace</label><input type="text" value="${esc(g(`${dk}.run.pace`,''))}" oninput="sv('${dk}.run.pace',this.value)" placeholder="11:30 /mi"></div>
+      </div>
+      <label class="lbl">How did it feel? Knee notes?</label>
+      <textarea style="min-height:48px" oninput="sv('${dk}.run.notes',this.value)">${esc(g(`${dk}.run.notes`,''))}</textarea>
+    </div>`;
+  } else {
+    H+=`<div class="card">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:5px">
+        <div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:#999">Phase 4 — Zone 2 Run · 10 min</div>
+        <div style="font-size:10px;font-weight:600;color:#1a5a9b;background:#e6eef8;padding:2px 7px;border-radius:5px">6:00am · 10 min</div>
+      </div>
+      ${phaseRow(dk,'phase4run','Zone 2 run complete')}
+      <div style="font-size:11px;color:#555;line-height:1.5;padding:4px 0">Rest day from marathon. Conversational pace 10 min — keeps aerobic base without adding run stress.</div>
+    </div>`;
+  }
+
+  // ── PHASE 5 — Run (old, now removed) ─────────────────────
+  if(false){
     // Marathon run is rendered separately above by renderMarathonRun()
     // Just show a connector card
     H+=`<div class="card" style="background:#e6f4ee;border-color:#1a7a50">
@@ -774,7 +843,7 @@ function renderDariusTraining(dk,d){
   if(isRunDay){
     H+=`<div class="card">
       <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:5px">
-        <div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:#999">Phase 6 — Pre-lift warm-up</div>
+        <div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:#999">Phase 5 — Pre-lift warm-up</div>
         <div style="font-size:10px;font-weight:600;color:#1a5a9b;background:#e6eef8;padding:2px 7px;border-radius:5px">after run · 5 min</div>
       </div>
       ${phaseRow(dk,'phase6warmup','Warm-up complete')}
@@ -782,7 +851,7 @@ function renderDariusTraining(dk,d){
     </div>`;}
 
   // ── PHASE 6 or 7 — Main lift ──────────────────────────────
-  const liftPhaseNum = isRunDay ? 7 : 6;
+  const liftPhaseNum = isRunDay ? 6 : 5;
   const liftTime = isRunDay ? 'after warm-up · 35 min' : '6:10am · 35 min';
   if(comp&&comp.n){
     H+=`<div class="card">
@@ -873,10 +942,10 @@ function renderDariusTraining(dk,d){
   if(bp){
     H+=`<div class="card">
       <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:5px">
-        <div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:#999">Phase ${finalPhase} — Bulletproofing + PAILs/RAILs · ${bp.t}</div>
+        <div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:#999">Phase 8 — Bulletproofing + PAILs/RAILs · ${bp.t}</div>
         <div style="font-size:10px;font-weight:600;color:#1D9E75;background:#e0f3ea;padding:2px 7px;border-radius:5px">~6:50am · 8 min</div>
       </div>
-      ${phaseRow(dk,'phase_bp','Phase ${finalPhase} complete')}
+      ${phaseRow(dk,'phase_bp','Bulletproofing + PAILs/RAILs complete')}
       <ul style="padding-left:14px;margin:6px 0">${bp.i.map(i=>`<li style="font-size:11px;color:#555;margin-bottom:5px;line-height:1.6">${i}</li>`).join('')}</ul>
       <div style="font-size:10px;color:#999;font-weight:600;margin-bottom:3px;margin-top:6px">How-to videos</div>
       ${bp.v.map(v=>`<a class="vl" href="https://www.youtube.com/results?search_query=${encodeURIComponent(v)}" target="_blank">▶ ${v}</a>`).join('')}
@@ -969,6 +1038,28 @@ function renderKelcie(){
 }
 
 // ── SHARED COMPONENTS ──────────────────────────────────────
+function renderStudyDarius(dk,d){
+  const isSat=d===6;
+  const isTue=d===2;
+  const target=isSat?3:1.5;
+  const label=isTue?'Workout programs for work':'School';
+  const note=isTue?'Tuesday: workout program design for clients':'Target: '+target+' hrs';
+  const hrs=parseFloat(g(`${dk}.study.hours`,0))||0;
+  const pct=Math.min(100,Math.round((hrs/target)*100));
+  return `<div class="sec"><div class="sh"><div class="st"><div class="dot a-purple"></div>${label}</div><span style="font-size:10px;color:#999">${note}</span></div>
+  <div class="card">
+    <div style="display:flex;align-items:center;gap:10px;margin-bottom:8px">
+      <div><label class="lbl">Hours</label><input type="text" inputmode="decimal" value="${g(`${dk}.study.hours`,'')}" onchange="sv('${dk}.study.hours',this.value);renderAll()" style="width:60px;font-size:15px;font-weight:700;text-align:center;padding:4px 6px"></div>
+      <div style="flex:1"><div style="font-size:10px;color:#999;margin-bottom:2px">${pct}% of ${target}hr goal</div>
+        <div class="pbar"><div class="pbf" style="width:${pct}%;background:${pct>=100?'#1a7a50':'#7F77DD'}"></div></div>
+      </div>
+    </div>
+    <div style="margin-bottom:7px"><label class="lbl">${isTue?"Tonight's program":"Tonight's goal"}</label><input type="text" value="${esc(g(`${dk}.study.goal`,''))}" oninput="sv('${dk}.study.goal',this.value)" placeholder="${isTue?'e.g. Build hypertrophy program for client X...':'e.g. Chapter 4 + problem set...'}"></div>
+    <label class="lbl">Completed / notes</label>
+    <textarea style="min-height:42px" oninput="sv('${dk}.study.completed',this.value)">${esc(g(`${dk}.study.completed`,''))}</textarea>
+  </div></div>`;
+}
+
 function renderStudy(dk,who){
   return `<div class="sec"><div class="sh"><div class="st"><div class="dot a-purple"></div>School</div><span style="font-size:10px;color:#999">Target: 2 hrs</span></div>
   <div class="card">
@@ -1083,7 +1174,7 @@ function renderJournal(dk,d,who){
 function renderWindDown(dk,d,who){
   const wdList=who==='d'?D_WD:K_WD;
   const onClass=who==='d'?'on-j':'on-k';
-  const bedTime=who==='d'?'10:30pm':'9:15pm';
+  const bedTime=who==='d'?'9:45pm':'9:15pm';
   let H=`<div class="sec"><div class="sh"><div class="st"><div class="dot a-purple"></div>Wind-down protocol</div></div><div class="card">`;
   wdList.forEach((item,i)=>{
     H+=`<div style="display:flex;align-items:flex-start;gap:8px;padding:7px 0;border-bottom:1px solid #f0ede6">
@@ -1091,14 +1182,6 @@ function renderWindDown(dk,d,who){
       ${item.v?`<a class="vl" style="margin-top:0;flex-shrink:0" href="https://www.youtube.com/results?search_query=${encodeURIComponent(item.v)}" target="_blank">▶</a>`:''}
     </div>`;
   });
-  if(who==='d'){
-    H+=`<div style="margin-top:8px;padding-top:8px;border-top:1px solid #f0ede6">
-      <div style="font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.08em;color:#999;margin-bottom:5px">Axisboard Pro + toe spacers</div>
-      <div style="font-size:11px;color:#555;line-height:1.5;margin-bottom:7px">5–10 min before bed. Put toe spacers on, stand on the Axisboard. Balance work at low intensity is calming for your nervous system — it's a natural transition into sleep mode. Single leg balance, lateral rocks, forward/back, squat holds.</div>
-      <a class="vl" href="https://www.youtube.com/results?search_query=sidekick+axisboard+pro+exercises+tutorial" target="_blank">▶ Axisboard exercises</a>
-      <div style="margin-top:7px">${hr(dk,'axisboard','Axisboard Pro + toe spacers done','Before bed','d')}</div>
-    </div>`;
-  }
   H+=`<div style="margin-top:6px">${hr(dk,'winddown',`Wind-down — start by ${bedTime}`,bedTime,who)}</div>
   </div></div>`;return H;
 }
